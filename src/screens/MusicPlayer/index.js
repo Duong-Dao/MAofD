@@ -9,7 +9,15 @@ import TrackPlayer, {
   Event, RepeatMode, useTrackPlayerEvents
 } from "react-native-track-player";
 
-//http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3
+
+
+
+// {
+//     title: 'Stressed Out',
+//     artist: 'Twenty One Pilots',
+//     albumArtUrl: "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+//     audioUrl: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
+//   },
 const track3 = {
   url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3', // Load media from the network
   title: 'Avaritia',
