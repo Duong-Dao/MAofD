@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
-import styles from './MainStyles';
+import styles from './styles';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const data = ['hehe', 'hoho', 'keke', 'khua khua', 'khakha', 'kaka'];
 const renderList = ({ item }) => {
@@ -18,7 +19,7 @@ const PlayList = () => {
         <Text>Favorites</Text>
       </View>
       <View style={styles.recomendedContainer}>
-        <Text style={styles.textHeader}>Recomended</Text>
+      <Text style={styles.textHeader2}>Recomended</Text>
         <FlatList
           data={data}
           keyExtractor={(i) => i.index}
@@ -28,7 +29,9 @@ const PlayList = () => {
         />
       </View>
       <View style={styles.playBottomContainer}>
-        <Text>Bottom</Text>
+      <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
+        <Ionicons name="play-circle-outline" size={50} color="black" />
+        <Ionicons name="play-skip-forward-circle-outline" size={35} color="black" />
       </View>
     </View>
   );
