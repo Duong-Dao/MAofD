@@ -13,7 +13,7 @@ import IconRepeatOnce from "../../components/IconRepeatOnce";
 const track = {
   title: 'Stressed Out',
   artist: 'Twenty One Pilots',
-  artwork: "https://i.picsum.photos/id/608/200/200.jpg?hmac=-p1htX-mFieavdRDr9vUIJKyDHCXZAY5B35nhdcgIgQ",
+  artwork: "https://random.imagecdn.app/500/150",
   url: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
   duration: 200
 }
@@ -23,8 +23,8 @@ const track3 = {
   title: 'Avaritia',
   artist: 'deadmau5',
   album: 'while(1<2)',
-  artwork: 'https://picsum.photos/300',
-  duration: 500
+  artwork: "https://random.imagecdn.app/500/150",
+  duration: 508
 };
 
 const trackPlayerInit = async () => {
@@ -96,11 +96,11 @@ export default function MusicPlayer() {
       event.type === Event.PlaybackTrackChanged &&
       event.nextTrack !== undefined
     ) {
-      const track = await TrackPlayer.getTrack(event.nextTrack);
-      const { title, artist, artwork } = track || {};
-      setTrackTitle(title);
-      setTrackArtist(artist);
-      setTrackArtwork(artwork);
+      const track = await TrackPlayer.getTrack(event.nextTrack)
+      const { title, artist, artwork } = track
+      setTrackTitle(title)
+      setTrackArtist(artist)
+      setTrackArtwork(artwork)
     }
   });
 
@@ -125,10 +125,9 @@ export default function MusicPlayer() {
       <View style={styles.mainContainer}>
         <View style={styles.mainWork}>
           <Image
-            //source={require("../../assets/iconMain.jpg")}
-            // source={trackArtwork}
-            source={require("https://i.picsum.photos/id/608/200/200.jpg")}
+            source={{ uri: trackArtwork }}
             style={styles.imgWork}
+            resizeMode="cover"
           />
         </View>
         <View
