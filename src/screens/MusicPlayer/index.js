@@ -1,83 +1,108 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, Image } from "react-native";
 import Slider from "@react-native-community/slider";
-import Icon from "react-native-vector-icons/Ionicons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "./MusicPlayerStyles";
 import TrackPlayer, {
   Capability, State,
   usePlaybackState, useProgress,
   Event, RepeatMode, useTrackPlayerEvents
 } from "react-native-track-player";
+import IconRepeatOnce from "../../components/IconRepeatOnce";
 
+const track = {
+  title: 'Stressed Out',
+  artist: 'Twenty One Pilots',
+  artwork: "https://i.picsum.photos/id/608/200/200.jpg?hmac=-p1htX-mFieavdRDr9vUIJKyDHCXZAY5B35nhdcgIgQ",
+  url: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
+  duration: 200
+}
 
-
-
-// {
-//     title: 'Stressed Out',
-//     artist: 'Twenty One Pilots',
-//     albumArtUrl: "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
-//     audioUrl: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
-//   },
 const track3 = {
-  url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3', // Load media from the network
+  url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
   title: 'Avaritia',
   artist: 'deadmau5',
   album: 'while(1<2)',
-  genre: 'Progressive House, Electro House',
-  date: '2014-05-20T07:00:00+00:00', // RFC 3339
-  artwork: 'http://example.com/cover.png', // Load artwork from the network
+  artwork: 'https://picsum.photos/300',
   duration: 500
 };
 
 const trackPlayerInit = async () => {
-  await TrackPlayer.setupPlayer({});
-  return true;
-};
+  await TrackPlayer.setupPlayer({})
+  return true
+}
 
 const setup = async () => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
+  const currentTrack = await TrackPlayer.getCurrentTrack()
   if (currentTrack !== null) {
     return
   }
   else {
     await TrackPlayer.setupPlayer({}).then(async () => {
       await TrackPlayer.reset()
-      await TrackPlayer.add({
-        url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
-        title: 'Avaritia',
-        artist: 'deadmau5',
-        album: 'while(1<2)',
-        genre: 'Progressive House, Electro House',
-        date: '2014-05-20T07:00:00+00:00',
-        artwork: 'http://example.com/cover.png',
-        duration: 500
-      })
-      TrackPlayer.setRepeatMode(RepeatMode.Queue)
+      await TrackPlayer.add([track, track3])
+      TrackPlayer.setRepeatMode(RepeatMode.Off)
     })
   }
 }
 
 const togglePlayback = async (playbackState) => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
+  const currentTrack = await TrackPlayer.getCurrentTrack()
   if (currentTrack == null) {
 
   } else {
     if (playbackState !== State.Playing) {
-      await TrackPlayer.play();
+      await TrackPlayer.play()
     } else {
-      await TrackPlayer.pause();
+      await TrackPlayer.pause()
     }
   }
+}
+const slidingCompleted = async (value) => {
+  await TrackPlayer.seekTo(value)
 }
 
 export default function MusicPlayer() {
   const playbackState = usePlaybackState()
   const progress = useProgress()
-  console.log("Progress", progress);
 
-  const slidingCompleted = async (value) => {
-    await TrackPlayer.seekTo(value);
+  const [trackArtist, setTrackArtist] = useState()
+  const [trackArtwork, setTrackArtwork] = useState()
+  const [trackTitle, setTrackTitle] = useState()
+  const [repeatMode, setRepeatMode] = useState("off")
+  const [like, setLike] = useState(false)
+
+  const changeRepeatMode = () => {
+    if (repeatMode == "off") {
+      TrackPlayer.setRepeatMode(RepeatMode.Track)
+      setRepeatMode("track")
+    }
+    if (repeatMode == "track") {
+      TrackPlayer.setRepeatMode(RepeatMode.Queue)
+      setRepeatMode("repeat")
+    }
+    if (repeatMode == "repeat") {
+      TrackPlayer.setRepeatMode(RepeatMode.Off)
+      setRepeatMode("off")
+    }
   }
+
+  const changeStatusHeart = () => {
+    setLike(!like)
+  }
+
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    if (
+      event.type === Event.PlaybackTrackChanged &&
+      event.nextTrack !== undefined
+    ) {
+      const track = await TrackPlayer.getTrack(event.nextTrack);
+      const { title, artist, artwork } = track || {};
+      setTrackTitle(title);
+      setTrackArtist(artist);
+      setTrackArtwork(artwork);
+    }
+  });
 
   useEffect(() => {
     trackPlayerInit()
@@ -100,14 +125,16 @@ export default function MusicPlayer() {
       <View style={styles.mainContainer}>
         <View style={styles.mainWork}>
           <Image
-            source={require("../../assets/iconMain.jpg")}
+            //source={require("../../assets/iconMain.jpg")}
+            // source={trackArtwork}
+            source={require("https://i.picsum.photos/id/608/200/200.jpg")}
             style={styles.imgWork}
           />
         </View>
         <View
           style={styles.title}>
-          <Text style={styles.songTitle}>Song</Text>
-          <Text style={styles.singerName}>name</Text>
+          <Text style={styles.songTitle}>{trackTitle}</Text>
+          <Text style={styles.singerName}>{trackArtist}</Text>
         </View>
         <View>
           <Slider
@@ -133,7 +160,7 @@ export default function MusicPlayer() {
           <TouchableOpacity
             style={{}}
             onPress={() => TrackPlayer.skipToPrevious()}>
-            <Icon
+            <Ionicons
               name="play-skip-back-circle-outline"
               size={55} color="#fff"
               style={{ marginTop: 15 }} />
@@ -141,10 +168,10 @@ export default function MusicPlayer() {
 
           <TouchableOpacity
             onPress={() => togglePlayback(playbackState)}>
-            {playbackState === State.Playing ? <Icon
+            {playbackState === State.Playing ? <Ionicons
               name="pause-circle-outline"
               size={75}
-              color="#E8E8E8" /> : <Icon
+              color="#E8E8E8" /> : <Ionicons
               name="play-circle-outline"
               size={75}
               color="#E8E8E8" />}
@@ -152,7 +179,7 @@ export default function MusicPlayer() {
 
           <TouchableOpacity
             onPress={() => TrackPlayer.skipToNext()}>
-            <Icon
+            <Ionicons
               name="play-skip-forward-circle-outline"
               size={55}
               color="#E8E8E8"
@@ -162,26 +189,35 @@ export default function MusicPlayer() {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.bottomControl}>
-          <TouchableOpacity onPress={() => { }}>
-            <Icon
+          <TouchableOpacity onPress={() => changeStatusHeart()}>
+            {like ? <Ionicons
               name="heart-outline"
               size={24}
-              color="#E8E8E8" />
+              color="#800080" /> : <Ionicons
+              name="heart-outline"
+              size={24}
+              color="#E8E8E8" />}
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }}>
-            <Icon
+          <TouchableOpacity onPress={() => changeRepeatMode()}>
+            {repeatMode == "off" && <Ionicons
               name="repeat-outline"
               size={24}
-              color="#E8E8E8" />
+              color="#E8E8E8" />}
+            {repeatMode == "track" && <IconRepeatOnce />}
+
+            {repeatMode == "repeat" && <Ionicons
+              name="repeat-outline"
+              size={24}
+              color="#800080" />}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => { }}>
-            <Icon
+            <Ionicons
               name="share-outline"
               size={24}
               color="#E8E8E8" />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => { }}>
-            <Icon
+            <Ionicons
               name="ellipsis-horizontal"
               size={24}
               color="#E8E8E8" />
