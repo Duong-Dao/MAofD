@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
-import styles from './styles';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import styles from './MainStyles';
+import Ionicons from 'react-native-vector-icon/Ionicons';
 
 const data = ['hehe', 'hoho', 'keke', 'khua khua', 'khakha', 'kaka'];
 const renderList = ({ item }) => {
