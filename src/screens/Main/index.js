@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
-import styles from './styles';
+import styles from './MainStyles';
 
 const data = ['hehe', 'hoho', 'keke', 'khua khua', 'khakha', 'kaka'];
 const renderList = ({ item }) => {
