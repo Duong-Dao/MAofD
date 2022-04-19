@@ -6,7 +6,7 @@ const data = ['hehe', 'hoho', 'keke', 'khua khua', 'khakha', 'kaka'];
 const renderList = ({ item }) => {
   return (
     <View style={styles.listContainer}>
-      <Text>item</Text>
+      <Text>{item}</Text>
     </View>
   );
 };
@@ -18,6 +18,7 @@ const PlayList = () => {
         <Text>Favorites</Text>
       </View>
       <View style={styles.recomendedContainer}>
+        <Text style={styles.textHeader}>Recomended</Text>
         <FlatList
           data={data}
           keyExtractor={(i) => i.index}
