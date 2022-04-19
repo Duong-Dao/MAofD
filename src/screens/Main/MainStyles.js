@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   textHeader:{
     position:"absolute",
     top:50,
-    left:50,
+    left:30,
     fontSize:24,
     fontWeight:"500"
   },
@@ -27,8 +27,10 @@ const styles = StyleSheet.create({
     padding:10
   },
   recomendedContainer:{
-    height:200,
-    marginBottom:10
+    backgroundColor:"green",
+    height:250,
+    marginBottom:10,
+    marginTop:50
   },
   playBottomContainer:{
     backgroundColor:"green",
@@ -38,15 +40,24 @@ const styles = StyleSheet.create({
     left:10,
     right:10,
     borderRadius:200,
-    padding:15
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center"
   },
   listContainer:{
-    height:200, 
-    width:200,
+    height:180, 
+    width:180,
     borderRadius:25,
     backgroundColor:"red",
-    marginHorizontal:15
-  }
+    marginLeft:30,
+    padding:15
+  },
+  textHeader2:{
+    fontSize:24,
+    fontWeight:"500",
+    marginBottom:20,
+    marginLeft:30
+  },
 })
 
 export default styles
