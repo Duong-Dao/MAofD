@@ -1,16 +1,9 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, ScrollView } from 'react-native'
 import styles from './MainStyles'
-import Ionicons from 'react-native-vector-icon/Ionicons'
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const data = ['hehe', 'hoho', 'keke', 'khua khua', 'khakha', 'kaka']
-const renderList = ({ item }) => {
-  return (
-    <View style={styles.listContainer}>
-      <Text>{item}</Text>
-    </View>
-  )
-}
+
 const PlayList = () => {
   return (
     <View style={styles.container}>
@@ -20,13 +13,38 @@ const PlayList = () => {
       </View>
       <View style={styles.recomendedContainer}>
         <Text style={styles.textHeader2}>Recomended</Text>
-        <FlatList
-          data={data}
-          keyExtractor={(i) => i.index}
-          renderItem={renderList}
-          horizontal
-          showsHorizontalScrollIndicator="false"
-        />
+        <ScrollView horizontal>
+
+          <View style={styles.listContainer}>
+
+          </View>
+
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+          <View style={styles.listContainer}>
+
+          </View>
+
+        </ScrollView>
       </View>
       <View style={styles.playBottomContainer}>
         <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />

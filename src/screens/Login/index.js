@@ -1,8 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from "./LoginStyles"
+import { useNavigation } from '@react-navigation/native'
+
 
 const Login = () => {
+
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View>
@@ -22,7 +26,7 @@ const Login = () => {
           placeholder="password"
           secureTextEntry
         />
-        <TouchableOpacity style={styles.btnSubmit}>
+        <TouchableOpacity style={styles.btnSubmit} >
           <Text>Submit</Text>
         </TouchableOpacity>
         <Text>New user? <Text style={{ fontWeight: "800" }} onPress={() => console.log("Create")}>Create account</Text></Text>

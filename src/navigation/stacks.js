@@ -11,8 +11,6 @@ const stacks = () => {
       <Stacks.Navigator>
         <Stacks.Screen name="" />
         <Stacks.Screen name="" />
-        <Stacks.Screen name="" />
-        <Stacks.Screen name="" />
       </Stacks.Navigator>
     </NavigationContainer>
   )
