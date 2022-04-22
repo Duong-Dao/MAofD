@@ -1,61 +1,42 @@
 import React from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Main, Setting, MusicPlayer, Login } from "../screens"
-import { NavigationContainer } from "@react-navigation/native"
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { View, Text } from "react-native"
 
 const Tab = createBottomTabNavigator()
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
 
 const Tabs = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{
+        tabBarActiveTintColor: 'orange',
+        tabBarInactiveTintColor: 'black',
+        tabBarLabelStyle: { fontSize: 10, lineHeight: 15 },
+        tabBarStyle: { height: 50 }
+      }}>
         <Tab.Screen name="Home" component={Main} options={{
-          headerShown: false
+          headerShown: false,
+          tabBarIcon: ({ color, size, focus }) => (
+            <Ionicons name="home-outline" color={color} size={size} />
+          )
         }} />
         <Tab.Screen name="Favorite" component={Login} options={{
-          headerShown: false
+          headerShown: false,
+          tabBarIcon: ({ color, focus, size }) => (
+            <Ionicons name="heart-outline" size={size} color={color} />
+          )
         }} />
-        <Tab.Screen name="Setting" component={Setting} />
+        <Tab.Screen name="Setting" component={Setting} options={{
+          tabBarIcon: ({ color, focus, size }) => (
+            <Ionicons name="settings-outline" size={size} color={color} />
+          )
+        }} />
       </Tab.Navigator>
-    </NavigationContainer>
+
   )
 }
 
 export default Tabs
-
-// screenOptions={({ route }) => ({
-//   tabBarIcon: ({ focused, color, size }) => {
-//     let iconName;
-
-//     if (route.name === 'Playlist') {
-//       iconName = focused
-//         ? 'ios-information-circle'
-//         : 'ios-information-circle-outline';
-//     } else if (route.name === 'Settings') {
-//       iconName = focused ? 'ios-list-box' : 'ios-list';
-//     }
-
-//     // You can return any component that you like here!
-//     return <Ionicons name={iconName} size={size} color={color} />;
-//   },
-//   tabBarActiveTintColor: 'tomato',
-//   tabBarInactiveTintColor: 'gray',
-// })}

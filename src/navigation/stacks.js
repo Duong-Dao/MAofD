@@ -1,19 +1,22 @@
 import React from "react"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { NavigationContainer } from "@react-navigation/native"
+import Tabs from "./tabs"
+import { MusicPlayer } from "../screens"
 
+const Stack = createNativeStackNavigator()
 
-const Stacks = createNativeStackNavigator()
-
-const stacks = () => {
+const Stacks = () => {
   return (
     <NavigationContainer>
-      <Stacks.Navigator>
-        <Stacks.Screen name="" />
-        <Stacks.Screen name="" />
-      </Stacks.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="Player" component={MusicPlayer} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
-export default stacks
+export default Stacks
