@@ -1,5 +1,5 @@
 
-
+//Ionicons,MaterialIcons,MaterialCommunityIcons
 
 
 const {width, height} = Dimensions.get("screen")
