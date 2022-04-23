@@ -1,12 +1,10 @@
-import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react'
+import { View, Text, FlatList, ScrollView } from 'react-native'
+import styles from './MainStyles'
 import Ionicons from "react-native-vector-icons/Ionicons";
-import styles from './MainStyles';
-import { useNavigation } from "@react-navigation/native"
 
-const Main = () => {
 
-  const navigation = useNavigation()
+const PlayList = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>PlayList</Text>
@@ -21,6 +19,7 @@ const Main = () => {
             <TouchableOpacity onPress={() => navigation.navigate("Player")}>
               <Text>Go to Player</Text>
             </TouchableOpacity>
+
           </View>
 
           <View style={styles.listContainer}>
@@ -59,4 +58,4 @@ const Main = () => {
   );
 };
 
-export default Main
+export default PlayList

@@ -1,13 +1,10 @@
 import React from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Main, Setting, MusicPlayer, Login } from "../screens"
-
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { View, Text } from "react-native"
+
 
 const Tab = createBottomTabNavigator()
-
-
 
 const Tabs = () => {
   return (
@@ -40,3 +37,4 @@ const Tabs = () => {
 }
 
 export default Tabs
+

@@ -6,15 +6,13 @@ import Tabs from './src/navigation/tabs';
 import Stacks from './src/navigation/stacks';
 import { PlayList } from './src/screens';
 
+
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <Stacks /> */}
-
       <PlayList />
     </View>
-    //     {/* <MusicPlayer /> */ }
-    // {/* <Login /> */ }
+    
 
   );
 }
