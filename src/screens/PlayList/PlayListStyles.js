@@ -25,14 +25,15 @@ const styles = StyleSheet.create({
   },
   btnItemListSong: {
     flexDirection: "row",
-    justifyContent: "space-between",
+   // justifyContent: "space-between",
     width: width - 20 - 20,
     height: 45,
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#000",
     marginVertical: 10,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    borderRadius: 15
   }
 })
 

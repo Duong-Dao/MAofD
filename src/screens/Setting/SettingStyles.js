@@ -1,38 +1,43 @@
-import {StyleSheet} from "react-native"
-
-
+import { StyleSheet, Dimensions } from "react-native"
+const { width, height } = Dimensions.get("screen")
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    justifyContent: "center",
+    alignItems: "center"
   },
-  header: {
-    flex: 2,
-    backgroundColor: 'red',
-    width: '90%',
-  },
-  main: {
-    flex: 5,
-    backgroundColor: 'green',
-    width: '90%',
-    marginVertical: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  bottom: {
+  headerContainer: {
     flex: 1,
-    backgroundColor: 'yellow',
-    width: '90%',
+    backgroundColor: "green",
+    width: "100%",
+    alignItems: "left",
+    justifyContent: "center",
+    paddingLeft: 30
   },
-  btnItemSetting: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
+  headerTitle: {
+    fontSize: 45,
+    fontWeight: 800,
+  },
+  mainContainer: {
+    flex: 2,
+    paddingTop: 30,
+
+  },
+  itemSettingContainer: {
     borderBottomWidth: 1,
+    borderColor: "#ccc",
     marginVertical: 15,
-    width: '100%',
-    backgroundColor: '#fff',
+    width: width - 20 - 20,
+    height: 45,
+    paddingLeft: 15,
+    flexDirection: "row",
   },
-});
+  itemSettingText: {
+    fontSize: 16,
+    fontWeight: 400,
+    fontStyle: "normal",
+    marginLeft: 10
+  },
+})
+
+export default styles

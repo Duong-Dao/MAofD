@@ -1,49 +1,43 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Text, View, FlatList, TouchableOpacity } from "react-native"
+import { Text, View, TouchableOpacity } from "react-native"
 import styles from "./SettingStyles"
-
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "react-native-vector-icons"
 
 
 
 const Setting = () => {
-  const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text>Setting</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text>Click</Text>
-        </TouchableOpacity>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Setting</Text>
       </View>
-      <View style={styles.main}>
-        <TouchableOpacity
-          style={styles.btnItemSetting}
-          onPress={() => console.log('Account')}>
-          <Text>Account</Text>
+      <View style={styles.mainContainer}>
+
+        <TouchableOpacity style={styles.itemSettingContainer}>
+          <Ionicons name="ios-person-outline" size={25} color="black" />
+          <Text style={styles.itemSettingText}>Account</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.btnItemSetting}
-          onPress={() => console.log('Theme')}>
-          <Text>Theme</Text>
+        <TouchableOpacity style={styles.itemSettingContainer}>
+          <MaterialCommunityIcons name="theme-light-dark" size={25} color="black" />
+          <Text style={styles.itemSettingText}>Theme</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.btnItemSetting}
-          onPress={() => console.log('Language')}>
-          <Text>Language</Text>
+        <TouchableOpacity style={styles.itemSettingContainer}>
+          <Ionicons name="ios-language-outline" size={25} color="black" />
+          <Text style={styles.itemSettingText}>Language</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.btnItemSetting}
-          onPress={() => console.log('Feedback')}>
-          <Text>Feedback</Text>
+        <TouchableOpacity style={styles.itemSettingContainer}>
+          <MaterialIcons name="support-agent" size={25} color="black" />
+          <Text style={styles.itemSettingText}>Feedback</Text>
         </TouchableOpacity>
 
-      </View>
-      <View style={styles.bottom}>
-        <Text>Bottom</Text>
+        <TouchableOpacity style={[styles.itemSettingContainer, { borderBottomWidth: 0 }]}>
+          <Ionicons name="ios-power-outline" size={25} color="red" />
+          <Text style={[styles.itemSettingText, { color: "red" }]}>Logout</Text>
+        </TouchableOpacity>
+
       </View>
     </View>
   )
