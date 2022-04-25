@@ -1,14 +1,15 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { PlayList } from './src/screens';
-
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { PlayList, Login } from './src/screens'
+import Stacks from "./src/navigation/stacks"
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <PlayList />
+      <Login />
+      {/* <Stacks /> */}
     </View>
-    
+
 
   );
 }

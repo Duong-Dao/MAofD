@@ -1,12 +1,13 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React from "react"
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native"
+// import { useNavigation } from '@react-navigation/native'
+import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./LoginStyles"
-import { useNavigation } from '@react-navigation/native'
 
 
-const Login = () => {
+export default function Login() {
 
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View>
@@ -27,20 +28,29 @@ const Login = () => {
           secureTextEntry
         />
         <TouchableOpacity style={styles.btnSubmit} >
-          <Text>Submit</Text>
+          <Text style={styles.txtSubmit}>Login</Text>
         </TouchableOpacity>
-        <Text>New user? <Text style={{ fontWeight: "800" }} onPress={() => console.log("Create")}>Create account</Text></Text>
+        <Text style={{ color: "#000" }}>New user?
+          <Text
+            style={{ fontWeight: "800", color: "#000" }}
+            onPress={() => console.log("Create")}>  Create account</Text>
+        </Text>
       </View>
       <View style={{ height: 50, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-        <View style={{ width: 100, height: 1, backgroundColor: "#fff" }}></View>
-        <Text style={{ marginHorizontal: 50 }}>Or</Text>
-        <View style={{ width: 100, height: 1, backgroundColor: "#fff" }}></View>
+        <View style={{ width: 120, height: 2, backgroundColor: "#fff" }}></View>
+        <Text style={{ marginHorizontal: 30, fontSize: 16, fontWeight: "400", color: "#000" }}>Or</Text>
+        <View style={{ width: 120, height: 2, backgroundColor: "#fff" }}></View>
       </View>
       <View>
-        <Text>Bottom</Text>
+        <TouchableOpacity
+          style={styles.btnLoginGoogle}
+          onPress={() => console.log("login")}
+          activeOpacity={0.6}
+        >
+          <Ionicons name="logo-google" size={24} color="#fff" />
+          <Text style={styles.txtLogin}>Login with Google</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
-
-export default Login

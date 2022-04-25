@@ -3,7 +3,7 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import styles from "./PlayListStyles"
 import { Ionicons } from "react-native-vector-icons"
 
-const PlayList = () => {
+export default function PlayList() {
   const songs = [
     { id: 1, name: "item 1", duration: 100 },
     { id: 2, name: "item 2", duration: 100 },
@@ -24,20 +24,15 @@ const PlayList = () => {
 
   const renderItemInList = ({ item }) => {
     return (
-      // sua tu touch -> View , touch into icons
       <View style={styles.btnItemListSong}>
-        {/* <View style={{
-          justifyContent: "space-between"
-        }}>
-          <View style={{ backgroundColor: "#FFF", padding: 0 }}>
-            <Text>{item.name}</Text>
-            <Text>{item.duration}</Text>
-          </View> */}
-          {/* <Ionicons name="ios-play-outline" size={24} color="black" /> */}
-        {/* </View> */}
+        <Text>{item.name}</Text>
+        <Text>{item.duration}</Text>
+        <Ionicons name="ios-play-outline" size={24} color="black" />
       </View>
     )
   }
+
+
 
   useEffect(() => {
     //fetching data
@@ -45,7 +40,6 @@ const PlayList = () => {
     //   console.log("timer get songs");
     //   setDataSong(songs)
     // }, 15000)
-
     // return () => clearTimeout(timerGetSongs)
 
   }, [])
@@ -76,5 +70,3 @@ const PlayList = () => {
     </View>
   )
 }
-
-export default PlayList

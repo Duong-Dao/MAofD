@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   btnItemListSong: {
     flexDirection: "row",
-   // justifyContent: "space-between",
+    justifyContent: "space-between",
     width: width - 20 - 20,
     height: 45,
     alignItems: "center",

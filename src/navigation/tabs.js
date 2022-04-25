@@ -20,12 +20,12 @@ const Tabs = () => {
             <Ionicons name="home-outline" color={color} size={size} />
           )
         }} />
-        <Tab.Screen name="Favorite" component={Login} options={{
+        {/* <Tab.Screen name="Favorite" component={Login} options={{
           headerShown: false,
           tabBarIcon: ({ color, focus, size }) => (
             <Ionicons name="heart-outline" size={size} color={color} />
           )
-        }} />
+        }} /> */}
         <Tab.Screen name="Setting" component={Setting} options={{
           tabBarIcon: ({ color, focus, size }) => (
             <Ionicons name="settings-outline" size={size} color={color} />

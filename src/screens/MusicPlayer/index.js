@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, Image } from "react-native";
 import Slider from "@react-native-community/slider";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./MusicPlayerStyles";
 import TrackPlayer, {
   Capability, State,

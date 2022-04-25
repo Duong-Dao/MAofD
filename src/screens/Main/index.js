@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, FlatList, ScrollView } from 'react-native'
+import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import styles from './MainStyles'
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from '@react-navigation/native';
 
 
 const PlayList = () => {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>PlayList</Text>
