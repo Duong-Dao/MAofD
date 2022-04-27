@@ -6,19 +6,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#9966FF",
   },
   containerHeader: {
     flex: 1,
-    backgroundColor: "red",
     width: width,
     alignItems: "center",
     justifyContent: "center"
-
+  },
+  txtHeader: {
+    fontSize: 28,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: "#fff",
+    letterSpacing: 2,
+    lineHeight: 30,
   },
   containerList: {
     flex: 5,
-    backgroundColor: "magenta",
     width: width,
     alignItems: "center",
     paddingTop: 15,
@@ -26,15 +32,15 @@ const styles = StyleSheet.create({
   btnItemListSong: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: width - 20 - 20,
+    width: width - 25 - 25,
     height: 45,
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#000",
     marginVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 15
+    borderRadius: 10,
+    backgroundColor: "#fff"
   }
 })
+
 
 export default styles

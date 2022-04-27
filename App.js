@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { PlayList, Login } from './src/screens'
-import Stacks from "./src/navigation/stacks"
+import PlayList from './src/screens/PlayList'
+import Splash from './src/screens/Splash'
+// import Stacks from "./src/navigation/stacks"
 
 export default function App() {
+
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+
+    const timerLoading = setTimeout(() => {
+      setIsLoading(false)
+    }, 15000)
+    return () => {
+      clearTimeout(timerLoading)
+    }
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Login />
+      {isLoading ?
+        <Splash />
+        :
+        <PlayList />}
       {/* <Stacks /> */}
     </View>
-
-
-  );
+  )
 }
 
 const styles = StyleSheet.create({

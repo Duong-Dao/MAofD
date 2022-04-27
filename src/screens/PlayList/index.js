@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
-import styles from "./PlayListStyles"
-import { Ionicons } from "react-native-vector-icons"
+import { Text, TouchableOpacity, View, FlatList, ActivityIndicator } from 'react-native'
+import Ionicons from "react-native-vector-icons/Ionicons"
+import styles from './PlayListStyles'
+
+
+
 
 export default function PlayList() {
+
+
   const songs = [
     { id: 1, name: "item 1", duration: 100 },
     { id: 2, name: "item 2", duration: 100 },
@@ -20,53 +25,51 @@ export default function PlayList() {
     { id: 13, name: "item 13", duration: 100 },
   ]
 
-  const [dataSong, setDataSong] = useState(songs)
-
+  const [dataSong, setDataSong] = useState([])
+  const [isPlay, setIsPlay] = useState(false)
   const renderItemInList = ({ item }) => {
     return (
       <View style={styles.btnItemListSong}>
-        <Text>{item.name}</Text>
-        <Text>{item.duration}</Text>
-        <Ionicons name="ios-play-outline" size={24} color="black" />
+        <View>
+          <Text>{item.name}</Text>
+          <Text>{item.duration}</Text>
+        </View>
+        <TouchableOpacity onPress={() => { }}>
+          <Ionicons name="ios-play-outline" size={24} color="black" />
+        </TouchableOpacity>
       </View>
     )
   }
 
-
-
   useEffect(() => {
-    //fetching data
-    // const timerGetSongs = setTimeout(() => {
-    //   console.log("timer get songs");
-    //   setDataSong(songs)
-    // }, 15000)
-    // return () => clearTimeout(timerGetSongs)
+    // fetching data
+    const timerGetSongs = setTimeout(() => {
+      setDataSong(songs)
+    }, 15000)
+    return () => clearTimeout(timerGetSongs)
 
   }, [])
-
-
   return (
     <View style={styles.container}>
       <View style={styles.containerHeader}>
-        <Text>
-          View header
-        </Text>
+        <Text style={styles.txtHeader}>PlayList</Text>
       </View>
-      <View style={{ height: 15, backgroundColor: "#ffffff" }} />
-      {/* {dataSong.length > 0 ? */}
       <View style={styles.containerList}>
-        {/* <Text>FlatList render list</Text> */}
-        <FlatList
-          data={dataSong}
-          keyExtractor={i => i.id}
-          renderItem={renderItemInList}
-          showsVerticalScrollIndicator={false} />
+        {dataSong.length > 0 ?
+          <View style={styles.containerList}>
+            <FlatList
+              data={dataSong}
+              keyExtractor={i => i.id}
+              renderItem={renderItemInList}
+              showsVerticalScrollIndicator={false} />
+          </View>
+          :
+          <View style={styles.containerList}>
+            <Text>No Data</Text>
+            <ActivityIndicator size="large" />
+          </View>
+        }
       </View>
-
-      {/*or <View style={styles.containerList}>
-          <Text>No Data</Text>
-        </View> */}
-      {/* } */}
     </View>
   )
 }

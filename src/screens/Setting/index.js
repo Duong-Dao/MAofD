@@ -1,7 +1,10 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from "react-native"
 import styles from "./SettingStyles"
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "react-native-vector-icons"
+import { Ionicons,
+   MaterialCommunityIcons, 
+   MaterialIcons } from "react-native-vector-icons"
+   // đây
 
 
 

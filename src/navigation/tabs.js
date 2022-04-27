@@ -8,30 +8,30 @@ const Tab = createBottomTabNavigator()
 
 const Tabs = () => {
   return (
-      <Tab.Navigator screenOptions={{
-        tabBarActiveTintColor: 'orange',
-        tabBarInactiveTintColor: 'black',
-        tabBarLabelStyle: { fontSize: 10, lineHeight: 15 },
-        tabBarStyle: { height: 50 }
-      }}>
-        <Tab.Screen name="Home" component={Main} options={{
-          headerShown: false,
-          tabBarIcon: ({ color, size, focus }) => (
-            <Ionicons name="home-outline" color={color} size={size} />
-          )
-        }} />
-        {/* <Tab.Screen name="Favorite" component={Login} options={{
-          headerShown: false,
-          tabBarIcon: ({ color, focus, size }) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
-          )
-        }} /> */}
-        <Tab.Screen name="Setting" component={Setting} options={{
-          tabBarIcon: ({ color, focus, size }) => (
-            <Ionicons name="settings-outline" size={size} color={color} />
-          )
-        }} />
-      </Tab.Navigator>
+    <Tab.Navigator screenOptions={{
+      tabBarActiveTintColor: 'orange',
+      tabBarInactiveTintColor: 'black',
+      tabBarLabelStyle: { fontSize: 10, lineHeight: 15 },
+      tabBarStyle: { height: 50 }
+    }}>
+      <Tab.Screen name="Home" component={Main} options={{
+        headerShown: false,
+        tabBarIcon: ({ color, size, focus }) => (
+          <Ionicons name="home-outline" color={color} size={size} />
+        )
+      }} />
+      <Tab.Screen name="Favorite" component={Login} options={{
+        headerShown: false,
+        tabBarIcon: ({ color, focus, size }) => (
+          <Ionicons name="heart-outline" size={size} color={color} />
+        )
+      }} />
+      <Tab.Screen name="Setting" component={Setting} options={{
+        tabBarIcon: ({ color, focus, size }) => (
+          <Ionicons name="settings-outline" size={size} color={color} />
+        )
+      }} />
+    </Tab.Navigator>
 
   )
 }
