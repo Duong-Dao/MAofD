@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import PlayList from './src/screens/PlayList'
 import Splash from './src/screens/Splash'
-// import Stacks from "./src/navigation/stacks"
-
+import Stacks from "./src/navigation/stacks"
+import Main from './src/screens/Main'
 export default function App() {
 
   const [isLoading, setIsLoading] = useState(true)
@@ -19,11 +19,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoading ?
+      {/* {isLoading ?
         <Splash />
         :
-        <PlayList />}
-      {/* <Stacks /> */}
+        <PlayList />} */}
+      <Stacks />
     </View>
   )
 }

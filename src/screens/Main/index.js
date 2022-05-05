@@ -1,12 +1,32 @@
-import React from 'react'
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native'
-import styles from './MainStyles'
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import styles from './MainStyles';
 import { useNavigation } from '@react-navigation/native';
 
 
-const PlayList = () => {
+const Main = () => {
   const navigation = useNavigation()
+
+  const [playList, setPlayList] = useState([])
+
+  useEffect(() => async () => {
+    const res = await fetch("https://music-player-pink.vercel.app/api/top100")
+    const data = await res.json()
+    console.log("hhh", data);
+    setPlayList(data.data[0].items)
+  })
+
+  const renderPlayList = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.listContainer} onPress={() => navigation.navigate("PlayList", { key: item.encodeId })}>
+        <Image
+          style={{ borderRadius: 10, height: 200, width: 200 }}
+          source={{ uri: item.thumbnail }}
+          resizeMode="cover" />
+      </TouchableOpacity>
+    )
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>PlayList</Text>
@@ -15,41 +35,13 @@ const PlayList = () => {
       </View>
       <View style={styles.recomendedContainer}>
         <Text style={styles.textHeader2}>Recomended</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-
-          <View style={styles.listContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Player")}>
-              <Text>Go to Player</Text>
-            </TouchableOpacity>
-
-          </View>
-
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-          <View style={styles.listContainer}>
-
-          </View>
-
-        </ScrollView>
+        <FlatList
+          data={playList}
+          keyExtractor={(item) => item.encodeId}
+          renderItem={({ item }) => renderPlayList({ item })}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
       </View>
       <View style={styles.playBottomContainer}>
         <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
@@ -60,4 +52,4 @@ const PlayList = () => {
   );
 };
 
-export default PlayList
+export default Main
