@@ -27,10 +27,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
   recomendedContainer: {
-    //backgroundColor:"green",
+    //backgroundColor: "green",
     height: 250,
     marginBottom: 10,
-    marginTop: 50
+    marginTop: 50,
+    width: "100%"
   },
   playBottomContainer: {
     backgroundColor: "green",

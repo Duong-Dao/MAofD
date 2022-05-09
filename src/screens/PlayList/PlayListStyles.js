@@ -31,14 +31,26 @@ const styles = StyleSheet.create({
   },
   btnItemListSong: {
     flexDirection: "row",
-    justifyContent: "space-between",
     width: width - 25 - 25,
-    height: 45,
+    height: 85,
     alignItems: "center",
     marginVertical: 10,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     borderRadius: 10,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingLeft: 15,
+    // paddingRight: 15
+  },
+  songTitle: {
+    marginLeft: 20,
+    color: "#000",
+    fontSize: 18,
+    paddingRight: 85
+  },
+  songArtwork: {
+    borderRadius: 10,
+    height: 65,
+    width: 65
   }
 })
 

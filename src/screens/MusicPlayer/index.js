@@ -9,42 +9,31 @@ import TrackPlayer, {
   Event, RepeatMode, useTrackPlayerEvents
 } from "react-native-track-player";
 import IconRepeatOnce from "../../components/IconRepeatOnce";
+import axios from "axios";
 
-const track = {
-  title: 'Stressed Out',
-  artist: 'Twenty One Pilots',
-  artwork: "https://random.imagecdn.app/500/150",
-  url: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
-  duration: 200
-}
+// const track = {
+//   title: 'Stressed Out',
+//   artist: 'Twenty One Pilots',
+//   artwork: "https://random.imagecdn.app/500/150",
+//   url: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
+//   duration: 200
+// }
 
-const track3 = {
-  url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
-  title: 'Avaritia',
-  artist: 'deadmau5',
-  album: 'while(1<2)',
-  artwork: "https://random.imagecdn.app/500/150",
-  duration: 508
-};
+// const track3 = {
+//   url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+//   title: 'Avaritia',
+//   artist: 'deadmau5',
+//   album: 'while(1<2)',
+//   artwork: "https://random.imagecdn.app/500/150",
+//   duration: 508
+// }
 
 const trackPlayerInit = async () => {
   await TrackPlayer.setupPlayer({})
   return true
 }
 
-const setup = async () => {
-  const currentTrack = await TrackPlayer.getCurrentTrack()
-  if (currentTrack !== null) {
-    return
-  }
-  else {
-    await TrackPlayer.setupPlayer({}).then(async () => {
-      await TrackPlayer.reset()
-      await TrackPlayer.add([track, track3])
-      TrackPlayer.setRepeatMode(RepeatMode.Off)
-    })
-  }
-}
+
 
 const togglePlayback = async (playbackState) => {
   const currentTrack = await TrackPlayer.getCurrentTrack()
@@ -58,11 +47,57 @@ const togglePlayback = async (playbackState) => {
     }
   }
 }
+
 const slidingCompleted = async (value) => {
   await TrackPlayer.seekTo(value)
 }
 
-export default function MusicPlayer() {
+export default function MusicPlayer({ route }) {
+
+  // console.log("id", route.params.song.encodeId)
+  // console.log("song", route.params.song.title)
+  // console.log("name", route.params.song.artistsNames)
+  // console.log("image", route.params.song.thumbnail)
+  // console.log("duration", route.params.song.duration)
+
+  const getStreamSong = async () => {
+    await axios.get(`https://music-player-pink.vercel.app/api/song?id=${route.params.song.encodeId}`)
+      .then(res => {
+        trackPlayerInit()
+        let trackTest = {
+          id: route.params.song.encodeId,
+          title: route.params.song.title,
+          artist: route.params.song.artistsNames,
+          artwork: route.params.song.thumbnailM,
+          duration: route.params.song.duration,
+          url: res.data.data["128"]
+        }
+        setup(trackTest)
+      })
+  }
+
+
+  const setup = async (track) => {
+    const currentTrack = await TrackPlayer.getCurrentTrack()
+    if (currentTrack !== null) {
+      return
+    }
+    else {
+      await TrackPlayer.setupPlayer({})
+        .then(async () => {
+          await TrackPlayer.reset()
+          await TrackPlayer.add([track])
+          TrackPlayer.setRepeatMode(RepeatMode.Off)
+        })
+    }
+  }
+
+
+  // useEffect(() => {
+  //   getStreamSong()
+  // }, [])
+
+
   const playbackState = usePlaybackState()
   const progress = useProgress()
 
@@ -71,6 +106,7 @@ export default function MusicPlayer() {
   const [trackTitle, setTrackTitle] = useState()
   const [repeatMode, setRepeatMode] = useState("off")
   const [like, setLike] = useState(false)
+
 
   const changeRepeatMode = () => {
     if (repeatMode == "off") {
@@ -102,10 +138,10 @@ export default function MusicPlayer() {
       setTrackArtist(artist)
       setTrackArtwork(artwork)
     }
-  });
+  })
 
   useEffect(() => {
-    trackPlayerInit()
+    getStreamSong()
     TrackPlayer.updateOptions({
       stopWithApp: false,
       capabilities: [
@@ -117,7 +153,7 @@ export default function MusicPlayer() {
       ],
       compactCapabilities: [Capability.Play, Capability.Pause],
     })
-    setup()
+
   }, [])
 
   return (
@@ -127,7 +163,7 @@ export default function MusicPlayer() {
           <Image
             source={{ uri: trackArtwork }}
             style={styles.imgWork}
-            resizeMode="cover"
+            resizeMode="contain"
           />
         </View>
         <View
@@ -167,13 +203,14 @@ export default function MusicPlayer() {
 
           <TouchableOpacity
             onPress={() => togglePlayback(playbackState)}>
-            {playbackState === State.Playing ? <Ionicons
-              name="pause-circle-outline"
-              size={75}
-              color="#E8E8E8" /> : <Ionicons
-              name="play-circle-outline"
-              size={75}
-              color="#E8E8E8" />}
+            {playbackState === State.Playing ?
+              <Ionicons
+                name="pause-circle-outline"
+                size={75}
+                color="#E8E8E8" /> : <Ionicons
+                name="play-circle-outline"
+                size={75}
+                color="#E8E8E8" />}
           </TouchableOpacity>
 
           <TouchableOpacity

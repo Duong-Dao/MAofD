@@ -1,53 +1,58 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity, View, FlatList, ActivityIndicator, Image } from 'react-native'
-// import Ionicons from "react-native-vector-icons/Ionicons"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from './PlayListStyles'
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
 
 
 
-export default function PlayList({ route }) {
-
-  console.log("Route", route.params);
+const PlayList = ({ route }) => {
 
   const navigation = useNavigation()
-
-  const [playList, setPlayList] = useState([])
+  const idSong = route.params.key.encodeId
+  // console.log(route.params);
+  const [song, setSong] = useState([])
   const [isPlay, setIsPlay] = useState(false)
-  const renderItemInList = ({ item }) => {
-    return (
-      <View style={styles.btnItemListSong}>
-        <View>
-          <Image style={{
-            borderRadius: 10
-          }}
-            source={{ uri: item.thumbnail }}
-            resizeMode="cover" />
-          <Text>{item.title}</Text>
-        </View>
 
-      </View>
+
+  const renderItemInList = ({ item }) => {
+
+    return (
+      <TouchableOpacity
+        style={styles.btnItemListSong}
+        onPress={() => navigation.navigate("Player", { song: item })}>
+        <Image style={styles.songArtwork}
+          source={{ uri: item.thumbnail }}
+          resizeMode="cover" />
+        <Text style={styles.songTitle}>{item.title}</Text>
+      </TouchableOpacity>
     )
   }
 
-  useEffect(() => async () => {
-    const res = await fetch("https://music-player-pink.vercel.app/api/top100")
-    const data = await res.json()
-    // console.log("daaaaaa", data.data[0].items)
-    setPlayList(data.data[0].items)
+  const getSongById = async () => {
+    await axios.get(`https://music-player-pink.vercel.app/api/playlist?id=${idSong}`)
+      .then(res => {
+        setSong(res.data.data.song.items)
+      })
+  }
+
+  useEffect(() => {
+    getSongById()
   }, [])
 
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerHeader}>
+      {/* <View style={styles.containerHeader}>
         <Text style={styles.txtHeader}>PlayList</Text>
-      </View>
+      </View> */}
       <View style={styles.containerList}>
-        {playList.length > 0 ?
+        {song.length > 0 ?
           <View style={styles.containerList}>
             <FlatList
-              data={playList}
+              data={song}
+              // pagingEnabled={true}
               keyExtractor={i => i.encodeId}
               renderItem={renderItemInList}
               showsVerticalScrollIndicator={false} />
@@ -62,3 +67,5 @@ export default function PlayList({ route }) {
     </View>
   )
 }
+
+export default PlayList

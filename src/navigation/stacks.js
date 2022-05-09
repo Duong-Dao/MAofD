@@ -12,10 +12,12 @@ const Stacks = () => {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-        {/* <Stack.Screen name="Tabs" component={Tabs} />
-        <Stack.Screen name="Player" component={MusicPlayer} /> */}
+        {/* <Stack.Screen name="Tabs" component={Tabs} /> */}
         <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="PlayList" component={PlayList} />
+        <Stack.Screen name="PlayList" component={PlayList} options={{
+          headerShown:true
+        }} />
+        <Stack.Screen name="Player" component={MusicPlayer} />
       </Stack.Navigator>
     </NavigationContainer>
   )
