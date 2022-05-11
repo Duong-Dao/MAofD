@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./LoginStyles"
 
 
-export default function Login() {
+const Login = () => {
 
   // const navigation = useNavigation()
   return (
@@ -54,3 +54,5 @@ export default function Login() {
     </View>
   )
 }
+
+export default Login

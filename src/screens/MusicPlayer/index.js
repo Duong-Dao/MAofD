@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, TouchableOpacity, Image } from "react-native";
-import Slider from "@react-native-community/slider";
+import React, { useEffect, useState } from "react"
+import {
+  SafeAreaView, View,
+  Text, TouchableOpacity, Image
+} from "react-native"
+import Slider from "@react-native-community/slider"
 import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./MusicPlayerStyles";
+import styles from "./MusicPlayerStyles"
 import TrackPlayer, {
   Capability, State,
   usePlaybackState, useProgress,
   Event, RepeatMode, useTrackPlayerEvents
-} from "react-native-track-player";
-import IconRepeatOnce from "../../components/IconRepeatOnce";
-import axios from "axios";
+} from "react-native-track-player"
+import IconRepeatOnce from "../../components/IconRepeatOnce"
+import axios from "axios"
 
 // const track = {
 //   title: 'Stressed Out',

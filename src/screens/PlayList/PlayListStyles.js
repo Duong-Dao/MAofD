@@ -35,11 +35,9 @@ const styles = StyleSheet.create({
     height: 85,
     alignItems: "center",
     marginVertical: 10,
-    // paddingHorizontal: 15,
     borderRadius: 10,
     backgroundColor: "#fff",
     paddingLeft: 15,
-    // paddingRight: 15
   },
   songTitle: {
     marginLeft: 20,

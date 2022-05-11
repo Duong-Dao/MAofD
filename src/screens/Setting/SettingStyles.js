@@ -16,12 +16,11 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 45,
-    fontWeight: 800,
+    fontWeight: "800",
   },
   mainContainer: {
     flex: 2,
     paddingTop: 30,
-
   },
   itemSettingContainer: {
     borderBottomWidth: 1,
@@ -34,8 +33,7 @@ const styles = StyleSheet.create({
   },
   itemSettingText: {
     fontSize: 16,
-    fontWeight: 400,
-    fontStyle: "normal",
+    fontWeight: "400",
     marginLeft: 10
   },
 })

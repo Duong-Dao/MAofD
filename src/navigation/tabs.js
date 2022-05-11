@@ -1,7 +1,7 @@
 import React from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Main, Setting, MusicPlayer, Login } from "../screens"
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Main, Setting, Login, MusicPlayer } from "../screens"
+import Ionicons from "react-native-vector-icons/Ionicons"
 
 
 const Tab = createBottomTabNavigator()
@@ -27,12 +27,12 @@ const Tabs = () => {
         )
       }} />
       <Tab.Screen name="Setting" component={Setting} options={{
+        headerShown: false,
         tabBarIcon: ({ color, focus, size }) => (
           <Ionicons name="settings-outline" size={size} color={color} />
         )
       }} />
     </Tab.Navigator>
-
   )
 }
 
