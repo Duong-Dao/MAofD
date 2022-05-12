@@ -90,6 +90,7 @@ export default function MusicPlayer({ route }) {
         .then(async () => {
           await TrackPlayer.reset()
           await TrackPlayer.add([track])
+          // playbackState = State.Playing
           TrackPlayer.setRepeatMode(RepeatMode.Off)
         })
     }

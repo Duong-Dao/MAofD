@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native"
 const { width, height } = Dimensions.get("screen")
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -10,13 +12,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "green",
     width: "100%",
-    alignItems: "left",
     justifyContent: "center",
     paddingLeft: 30
   },
   headerTitle: {
     fontSize: 45,
     fontWeight: "800",
+    color: "#000"
   },
   mainContainer: {
     flex: 2,
@@ -34,7 +36,8 @@ const styles = StyleSheet.create({
   itemSettingText: {
     fontSize: 16,
     fontWeight: "400",
-    marginLeft: 10
+    marginLeft: 10,
+    color: "#000"
   },
 })
 

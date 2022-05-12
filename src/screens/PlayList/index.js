@@ -13,7 +13,7 @@ const PlayList = ({ route }) => {
   const idSong = route.params.key.encodeId
   const [song, setSong] = useState([])
 
-  const handleChangeView = () => {
+  const handleChangeView = (item) => {
     navigation.navigate("Player", { song: item })
   }
 
@@ -21,7 +21,7 @@ const PlayList = ({ route }) => {
     return (
       <TouchableOpacity
         style={styles.btnItemListSong}
-        onPress={handleChangeView}>
+        onPress={() => handleChangeView(item)}>
         <Image style={styles.songArtwork}
           source={{ uri: item.thumbnail }}
           resizeMode="cover" />

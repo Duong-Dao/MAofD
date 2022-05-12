@@ -1,7 +1,7 @@
-import React from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Main, Setting, Login, MusicPlayer } from "../screens"
+import React from "react"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import { Main, Setting, Favorites } from "../screens"
 
 
 const Tab = createBottomTabNavigator()
@@ -20,7 +20,7 @@ const Tabs = () => {
           <Ionicons name="home-outline" color={color} size={size} />
         )
       }} />
-      <Tab.Screen name="Favorite" component={Login} options={{
+      <Tab.Screen name="Favorite" component={Favorites} options={{
         headerShown: false,
         tabBarIcon: ({ color, focus, size }) => (
           <Ionicons name="heart-outline" size={size} color={color} />
