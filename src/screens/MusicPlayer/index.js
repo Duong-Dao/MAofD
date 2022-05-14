@@ -6,13 +6,17 @@ import {
 import Slider from "@react-native-community/slider"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./MusicPlayerStyles"
+import axios from "axios"
+import IconRepeatOnce from "../../components/IconRepeatOnce"
+
 import TrackPlayer, {
   Capability, State,
   usePlaybackState, useProgress,
   Event, RepeatMode, useTrackPlayerEvents
 } from "react-native-track-player"
-import IconRepeatOnce from "../../components/IconRepeatOnce"
-import axios from "axios"
+
+import { togglePlayback, setup, trackPlayerInit, slidingCompleted } from "./MusicPlayerController"
+
 
 // const track = {
 //   title: 'Stressed Out',
@@ -31,37 +35,10 @@ import axios from "axios"
 //   duration: 508
 // }
 
-const trackPlayerInit = async () => {
-  await TrackPlayer.setupPlayer({})
-  return true
-}
-
-
-
-const togglePlayback = async (playbackState) => {
-  const currentTrack = await TrackPlayer.getCurrentTrack()
-  if (currentTrack == null) {
-
-  } else {
-    if (playbackState !== State.Playing) {
-      await TrackPlayer.play()
-    } else {
-      await TrackPlayer.pause()
-    }
-  }
-}
-
-const slidingCompleted = async (value) => {
-  await TrackPlayer.seekTo(value)
-}
 
 export default function MusicPlayer({ route }) {
 
-  // console.log("id", route.params.song.encodeId)
-  // console.log("song", route.params.song.title)
-  // console.log("name", route.params.song.artistsNames)
-  // console.log("image", route.params.song.thumbnail)
-  // console.log("duration", route.params.song.duration)
+
 
   const getStreamSong = async () => {
     await axios.get(`https://music-player-pink.vercel.app/api/song?id=${route.params.song.encodeId}`)
@@ -78,28 +55,6 @@ export default function MusicPlayer({ route }) {
         setup(trackTest)
       })
   }
-
-
-  const setup = async (track) => {
-    const currentTrack = await TrackPlayer.getCurrentTrack()
-    if (currentTrack !== null) {
-      return
-    }
-    else {
-      await TrackPlayer.setupPlayer({})
-        .then(async () => {
-          await TrackPlayer.reset()
-          await TrackPlayer.add([track])
-          // playbackState = State.Playing
-          TrackPlayer.setRepeatMode(RepeatMode.Off)
-        })
-    }
-  }
-
-
-  // useEffect(() => {
-  //   getStreamSong()
-  // }, [])
 
 
   const playbackState = usePlaybackState()
@@ -239,16 +194,18 @@ export default function MusicPlayer({ route }) {
               color="#E8E8E8" />}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => changeRepeatMode()}>
-            {repeatMode == "off" && <Ionicons
-              name="repeat-outline"
-              size={24}
-              color="#E8E8E8" />}
+            {repeatMode == "off" &&
+              <Ionicons
+                name="repeat-outline"
+                size={24}
+                color="#E8E8E8" />}
             {repeatMode == "track" && <IconRepeatOnce />}
 
-            {repeatMode == "repeat" && <Ionicons
-              name="repeat-outline"
-              size={24}
-              color="#800080" />}
+            {repeatMode == "repeat" &&
+              <Ionicons
+                name="repeat-outline"
+                size={24}
+                color="#800080" />}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => { }}>
             <Ionicons
