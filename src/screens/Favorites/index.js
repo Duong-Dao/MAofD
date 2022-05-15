@@ -28,7 +28,7 @@ const Favorites = () => {
   }
   const handleRenderLibralies = useCallback(({ item }) => {
     return (
-      <View style={{ paddingLeft: 20 }}>
+      <View>
         <ItemRender {...item[0]} />
         <ItemRender {...item[1]} />
       </View>

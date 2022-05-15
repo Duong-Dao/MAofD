@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    position: "relative"
   },
   searchContainer: {
     height: 40,
     width: width - 30 - 30,
-    position: "absolute",
-    top: 10,
+    marginTop: 10
   },
   inputSearch: {
     height: 40,
@@ -21,25 +21,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 999,
     paddingLeft: 15,
-    lineHeight: 40
   },
   textHeader: {
-    position: "absolute",
-    top: 50,
-    left: 30,
     fontSize: 24,
     fontWeight: "500"
   },
-  favoritesContainer: {
+  bannerContainer: {
     backgroundColor: "green",
-    height: 100,
+    height: 200,
     marginBottom: 10,
-    position: "absolute",
     borderRadius: 25,
-    left: 30,
-    top: 100,
-    right: 30,
-    padding: 10
+    padding: 10,
+    width: width - 20 - 20,
+    marginTop: 20
   },
   recomendedContainer: {
     height: 250,
@@ -49,15 +43,14 @@ const styles = StyleSheet.create({
   },
   playBottomContainer: {
     backgroundColor: "green",
-    height: 80,
-    position: "absolute",
-    bottom: 10,
-    left: 10,
-    right: 10,
+    height: 55,
     borderRadius: 200,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    width: width - 20 - 20
   },
   listContainer: {
     height: 200,
@@ -74,7 +67,6 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 5, width: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    // elevation: 10
   },
   textHeader2: {
     fontSize: 24,
@@ -82,6 +74,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 30
   },
+  wrapper: {},
+  banner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+    borderRadius: 15,
+    marginHorizontal: 5
+  },
+  bannerName: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold'
+  }
 })
 
 export default styles

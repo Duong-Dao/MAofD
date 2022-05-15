@@ -21,9 +21,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: "100%",
   },
-  favoriteSong: {},
-  musicLibries: {
+  favoriteSong: {
 
+  },
+  musicLibries: {
+    paddingLeft: 10, 
+    paddingRight: 10
   },
   titleContent: {
     fontSize: 24,
@@ -38,16 +41,13 @@ const styles = StyleSheet.create({
     height: 85,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    marginHorizontal: 3,
-    marginVertical: 5,
+    marginHorizontal: 10,
+    marginVertical: 10,
     borderRadius: 15,
     padding: 10,
 
     shadowColor: "#ccc",
-    shadowOffset: {
-      height: 10,
-      width: 5
-    },
+    shadowOffset: { height: 10, width: 5 },
     shadowOpacity: 0.5,
     elevation: 10,
     shadowRadius: 15,
