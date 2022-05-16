@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    position: "relative"
   },
   searchContainer: {
     height: 40,
@@ -27,18 +26,42 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   bannerContainer: {
-    backgroundColor: "green",
     height: 200,
     marginBottom: 10,
-    borderRadius: 25,
+    borderRadius: 15,
     padding: 10,
     width: width - 20 - 20,
     marginTop: 20,
 
     shadowColor: "#000",
-    shadowOffset: { height: 5, width: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 15,
+    shadowOffset: { height: 3, width: 0 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+  },
+  topOptionContainer: {
+    flex: 1,
+    paddingLeft: 15,
+    marginTop: 10
+  },
+  topOptionItem: {
+    height: 80,
+    width: 80,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnTopOption: {
+    justifyContent: "center",
+    justifyContent: "center"
+  },
+  topOptionIcon: {
+    width: 50,
+    height: 50,
+    backgroundColor: "magenta",
+    borderRadius: 15
+  },
+  topOptionTitle: {
+    color: "#000",
+    marginTop: 10
   },
   recomendedContainer: {
     height: 250,
@@ -47,31 +70,33 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   playBottomContainer: {
-    backgroundColor: "green",
+    backgroundColor: "#fff",
     height: 55,
-    borderRadius: 200,
+    borderRadius: 15,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 0,
-    width: width - 20 - 20
+    bottom: 10,
+    width: width - 20 - 20,
+    opacity: 1,
+    borderColor: "transparent",
+    borderWidth: 1
   },
   listContainer: {
     height: 200,
     width: 200,
     borderRadius: 25,
-    marginLeft: 30,
-
+    marginLeft: 15,
   },
   imgThumbnail: {
     borderRadius: 10,
     height: 200,
     width: 200,
     shadowColor: "#000",
-    shadowOffset: { height: 5, width: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
+    shadowOffset: { height: 3, width: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
   },
   textHeader2: {
     fontSize: 24,
@@ -90,7 +115,7 @@ const styles = StyleSheet.create({
   bannerImg: {
     height: "100%",
     width: "100%",
-    borderRadius: 15,
+    borderRadius: 10,
   }
 })
 
