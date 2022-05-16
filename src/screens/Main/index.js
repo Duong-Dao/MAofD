@@ -38,17 +38,23 @@ const Main = () => {
   const [playList, setPlayList] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [banner, setBanner] = useState([])
-
-
+  const [vietnamSong, setVietnamSong] = useState([])
+  const [asiaSong, setAsiaSong] = useState([])
+  const [europeSong, setEuropeSong] = useState([])
+  const [concertSong, setConcertSong] = useState([])
   const typingSearch = useRef(null)
 
   const fetchPlayList = async () => {
     await axios.get("https://music-player-pink.vercel.app/api/top100")
       .then(res => {
         setPlayList(res.data.data[0].items)
+        setVietnamSong(res.data.data[1].items)
+        setAsiaSong(res.data.data[2].items)
+        setEuropeSong(res.data.data[3].items)
+        setConcertSong(res.data.data[4].items)
       })
   }
-  
+
   const fetchBanner = async () => {
     await axios.get("https://music-player-pink.vercel.app/api/home?page=1")
       .then(res => {
@@ -83,6 +89,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchPlayList()
+    fetchBanner()
   }, [])
 
 
@@ -90,7 +97,7 @@ const Main = () => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-        onPress={() => navigation.navigate("PlayList", { key: item })}>
+        onPress={() => navigation.navigate("Top 100")}>
         <Image
           style={styles.imgThumbnail}
           source={{ uri: item.thumbnail }}
@@ -101,19 +108,21 @@ const Main = () => {
 
   const renderTopOptions = ({ item }) => {
     return (
-      <View style={{ height: 70, width: 70, justifyContent: "center", alignItems: "center", margin: 5 }}>
-        <TouchableOpacity>
-          <View style={{ width: 50, height: 50, backgroundColor: "magenta", borderRadius: 15 }}>
+      <View style={styles.topOptionItem}>
+        <TouchableOpacity style={styles.btnTopOption}>
+          <View style={styles.topOptionIcon}>
           </View>
-          <Text>{item.name}</Text>
+          <Text style={styles.topOptionTitle}>{item.name}</Text>
         </TouchableOpacity>
       </View>
     )
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+
+      <ScrollView contentContainerStyle={{ justifyContent: "center", alignItems: "center", marginTop: 20 }}>
+
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.inputSearch}
@@ -124,41 +133,41 @@ const Main = () => {
 
         <View style={styles.bannerContainer}>
           {banner.length > 0 ?
-          <Swiper style={styles.wrapper}
-            loop={true}
-            autoplay={true}
-            autoplayTimeout={5}
-            dotStyle={{
-              backgroundColor: "#fff",
-              borderRadius: 999,
-              opacity: 0.3,
-              bottom: -25
-            }}
-            activeDotStyle={{
-              bottom: -25,
-              backgroundColor: "#fff",
-              opacity: 0.8,
-              borderRadius: 999
-            }}
-          >
-            {banner.map((item) => {
-              return (
-                <View style={styles.banner} key={item.encodeId}>
-                  <Image source={{ uri: item.banner }}
-                    resizeMode="cover"
-                    style={styles.bannerImg} />
-                </View>
-              )
-            })}
-          </Swiper>
-          :
-          <View style={[styles.banner, { justifyContent: "center", alignItems: "center" }]}>
-            <ActivityIndicator size="large" color="#000"></ActivityIndicator>
-          </View>
-        }
+            <Swiper style={styles.wrapper}
+              loop={true}
+              autoplay={true}
+              autoplayTimeout={5}
+              dotStyle={{
+                backgroundColor: "#fff",
+                borderRadius: 999,
+                opacity: 0.3,
+                bottom: -25
+              }}
+              activeDotStyle={{
+                bottom: -25,
+                backgroundColor: "#fff",
+                opacity: 0.8,
+                borderRadius: 999
+              }}
+            >
+              {banner.map((item) => {
+                return (
+                  <View style={styles.banner} key={item.encodeId}>
+                    <Image source={{ uri: item.banner }}
+                      resizeMode="cover"
+                      style={styles.bannerImg} />
+                  </View>
+                )
+              })}
+            </Swiper>
+            :
+            <View style={[styles.banner, { justifyContent: "center", alignItems: "center" }]}>
+              <ActivityIndicator size="large" color="#000"></ActivityIndicator>
+            </View>
+          }
         </View>
 
-        <View style={{ flex: 1, paddingLeft: 15, marginTop: 10 }}>
+        <View style={styles.topOptionContainer}>
           <FlatList
             data={options}
             keyExtractor={item => item.id}
@@ -169,7 +178,7 @@ const Main = () => {
         </View>
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Top 100</Text>
+          <Text style={styles.textHeader2}>Nổi bật</Text>
           <FlatList
             data={playList}
             keyExtractor={(item) => item.encodeId}
@@ -181,9 +190,9 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Recomended</Text>
+          <Text style={styles.textHeader2}>Nhạc Việt Nam</Text>
           <FlatList
-            data={playList}
+            data={vietnamSong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
@@ -193,9 +202,9 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Recomended</Text>
+          <Text style={styles.textHeader2}>Nhạc Châu Á</Text>
           <FlatList
-            data={playList}
+            data={asiaSong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
@@ -205,9 +214,9 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Recomended</Text>
+          <Text style={styles.textHeader2}>Nhạc Âu Mỹ</Text>
           <FlatList
-            data={playList}
+            data={europeSong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
@@ -217,25 +226,23 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Recomended</Text>
+          <Text style={styles.textHeader2}>Nhạc Hoà Tấu</Text>
           <FlatList
-            data={playList}
+            data={concertSong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
             horizontal
           />
         </View>
-
-
-        <View style={styles.playBottomContainer}>
-          <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
-          <Ionicons name="play-circle-outline" size={50} color="black" />
-          <Ionicons name="play-skip-forward-circle-outline" size={35} color="black" />
-        </View>
-
+        <View style={{ height: 100 }} />
+      </ScrollView>
+      <View style={styles.playBottomContainer}>
+        <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
+        <Ionicons name="play-circle-outline" size={50} color="black" />
+        <Ionicons name="play-skip-forward-circle-outline" size={35} color="black" />
       </View>
-    </ScrollView>
+    </View>
   )
 }
 
