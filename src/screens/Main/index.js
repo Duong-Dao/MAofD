@@ -37,6 +37,7 @@ const Main = () => {
 
   const [playList, setPlayList] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
+  const [banner, setBanner] = useState([])
 
 
   const typingSearch = useRef(null)
@@ -45,6 +46,13 @@ const Main = () => {
     await axios.get("https://music-player-pink.vercel.app/api/top100")
       .then(res => {
         setPlayList(res.data.data[0].items)
+      })
+  }
+  
+  const fetchBanner = async () => {
+    await axios.get("https://music-player-pink.vercel.app/api/home?page=1")
+      .then(res => {
+        setBanner(res.data.data.items[0].items)
       })
   }
 
@@ -115,6 +123,7 @@ const Main = () => {
         </View>
 
         <View style={styles.bannerContainer}>
+          {banner.length > 0 ?
           <Swiper style={styles.wrapper}
             loop={true}
             autoplay={true}
@@ -123,16 +132,30 @@ const Main = () => {
               backgroundColor: "#fff",
               borderRadius: 999,
               opacity: 0.3,
+              bottom: -25
+            }}
+            activeDotStyle={{
+              bottom: -25,
+              backgroundColor: "#fff",
+              opacity: 0.8,
+              borderRadius: 999
             }}
           >
-            {bannerName.map((item) => {
+            {banner.map((item) => {
               return (
-                <View style={styles.banner} key={item.id}>
-                  <Text style={styles.bannerName}>{item.name}</Text>
+                <View style={styles.banner} key={item.encodeId}>
+                  <Image source={{ uri: item.banner }}
+                    resizeMode="cover"
+                    style={styles.bannerImg} />
                 </View>
               )
             })}
           </Swiper>
+          :
+          <View style={[styles.banner, { justifyContent: "center", alignItems: "center" }]}>
+            <ActivityIndicator size="large" color="#000"></ActivityIndicator>
+          </View>
+        }
         </View>
 
         <View style={{ flex: 1, paddingLeft: 15, marginTop: 10 }}>
