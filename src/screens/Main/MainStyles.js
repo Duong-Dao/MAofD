@@ -33,7 +33,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 10,
     width: width - 20 - 20,
-    marginTop: 20
+    marginTop: 20,
+
+    shadowColor: "#000",
+    shadowOffset: { height: 5, width: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
   },
   recomendedContainer: {
     height: 250,
@@ -79,14 +84,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9DD6EB',
     borderRadius: 15,
-    marginHorizontal: 5
+    marginHorizontal: 5,
   },
-  bannerName: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
+  bannerImg: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 15,
   }
 })
 
