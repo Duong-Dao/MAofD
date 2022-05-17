@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Stacks from "./src/navigation/stacks"
 import { Favorites } from './src/screens'
+import Top100 from './src/screens/Top100'
 export default function App() {
 
   const [isLoading, setIsLoading] = useState(true)
@@ -21,8 +22,9 @@ export default function App() {
         <Splash />
         :
         <PlayList />} */}
-      <Stacks />
+      {/* <Stacks /> */}
       {/* <Favorites /> */}
+      <Top100 />
     </View>
   )
 }

@@ -4,5 +4,6 @@ import Setting from "./Setting"
 import MusicPlayer from "./MusicPlayer"
 import PlayList from "./PlayList"
 import Favorites from "./Favorites"
+import Top100 from "./Top100"
 
-export { Main, Login, Setting, MusicPlayer, PlayList, Favorites }
+export { Main, Login, Setting, MusicPlayer, PlayList, Favorites, Top100 }

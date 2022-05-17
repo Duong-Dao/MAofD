@@ -1,7 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
-import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+  FlatList, Image,
+  ScrollView, Text, TextInput,
+  TouchableOpacity, View, ActivityIndicator
+} from 'react-native'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Swiper from 'react-native-swiper'
 import styles from './MainStyles'
@@ -17,17 +21,6 @@ const options = [
   { id: "6", icon: "", name: "Vip" },
   { id: "7", icon: "", name: "Top MV" },
   { id: "8", icon: "", name: "Sự kiện" }
-]
-
-const bannerName = [
-  { id: "1", name: "Slide 1" },
-  { id: "2", name: "Slide 2" },
-  { id: "3", name: "Slide 3" },
-  { id: "4", name: "Slide 4" },
-  { id: "5", name: "Slide 5" },
-  { id: "6", name: "Slide 6" },
-  { id: "7", name: "Slide 7" },
-
 ]
 
 
@@ -97,7 +90,8 @@ const Main = () => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-        onPress={() => navigation.navigate("Top 100")}>
+      //onPress={() => navigation.navigate("Top 100")}
+      >
         <Image
           style={styles.imgThumbnail}
           source={{ uri: item.thumbnail }}
@@ -120,9 +114,11 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-
-      <ScrollView contentContainerStyle={{ justifyContent: "center", alignItems: "center", marginTop: 20 }}>
-
+      <ScrollView contentContainerStyle={{ 
+        justifyContent: "center", 
+        alignItems: "center", 
+        marginTop: 20 }}
+        >
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.inputSearch}
@@ -162,7 +158,7 @@ const Main = () => {
             </Swiper>
             :
             <View style={[styles.banner, { justifyContent: "center", alignItems: "center" }]}>
-              <ActivityIndicator size="large" color="#000"></ActivityIndicator>
+              <ActivityIndicator size="large" color="#000"/>
             </View>
           }
         </View>
