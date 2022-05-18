@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff"
   },
   recomendedContainer: {
     height: 250,
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 25,
     marginLeft: 15,
+    marginRight: 15
   },
   imgThumbnail: {
     borderRadius: 10,
@@ -30,11 +32,33 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   textHeader2: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "500",
     marginBottom: 20,
-    marginLeft: 30
+    marginLeft: 30,
+    color: "#000"
   },
+  headerContainer: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 0.5
+  },
+  btnBack: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 15
+  },
+  topHeader: {
+    justifyContent: "center",
+    marginLeft: 100,
+    fontSize: 24,
+    color: "#000",
+    fontWeight: "600"
+  }
 })
 
 export default styles

@@ -38,12 +38,13 @@ const setup = async (track) => {
       .then(async () => {
         await TrackPlayer.reset()
         await TrackPlayer.add([track])
+        await TrackPlayer.play()
         // TrackPlayer.setRepeatMode(RepeatMode.Off)
       })
   }
 }
 
-export {setup, slidingCompleted,trackPlayerInit, togglePlayback }
+export { setup, slidingCompleted, trackPlayerInit, togglePlayback }
 
 
 

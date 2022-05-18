@@ -18,14 +18,6 @@ import TrackPlayer, {
 import { togglePlayback, setup, trackPlayerInit, slidingCompleted } from "./MusicPlayerController"
 
 
-// const track = {
-//   title: 'Stressed Out',
-//   artist: 'Twenty One Pilots',
-//   artwork: "https://random.imagecdn.app/500/150",
-//   url: "http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3",
-//   duration: 200
-// }
-
 // const track3 = {
 //   url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
 //   title: 'Avaritia',
@@ -40,32 +32,67 @@ export default function MusicPlayer({ route }) {
 
 
 
-  const getStreamSong = async () => {
-    await axios.get(`https://music-player-pink.vercel.app/api/song?id=${route.params.song.encodeId}`)
-      .then(res => {
-        trackPlayerInit()
-        let trackTest = {
-          id: route.params.song.encodeId,
-          title: route.params.song.title,
-          artist: route.params.song.artistsNames,
-          artwork: route.params.song.thumbnailM,
-          duration: route.params.song.duration,
-          url: res.data.data["128"]
-        }
-        setup(trackTest)
-      })
-  }
-
-
   const playbackState = usePlaybackState()
   const progress = useProgress()
-
-  const [trackArtist, setTrackArtist] = useState()
-  const [trackArtwork, setTrackArtwork] = useState()
-  const [trackTitle, setTrackTitle] = useState()
+  const listIdSong = route.params.keyList
+  const listIdSongLength = listIdSong.length
+  const [currentIdSong, setCurrentIdSong] = useState(route.params.key)
+  const [currentTrackArtist, setCurrentTrackArtist] = useState()
+  const [currentTrackArtwork, setCurrentTrackArtwork] = useState()
+  const [currentTrackTitle, setCurrentTrackTitle] = useState()
   const [repeatMode, setRepeatMode] = useState("off")
   const [like, setLike] = useState(false)
 
+  // const [trackArtist, setTrackArtist] = useState()
+  // const [trackArtwork, setTrackArtwork] = useState()
+  // const [trackTitle, setTrackTitle] = useState()
+  // const [trackDuration, setTrackDuration] = useState()
+  // const [trackUrl, setTrackUrl] = useState()
+  // const [track, setTrack] = useState()
+
+
+  let currentIndex = listIdSong.findIndex((item) => item === currentIdSong)
+
+
+  const getSong = async () => {
+    const idSong = currentIdSong
+    let endpoints = [
+      `https://music-player-pink.vercel.app/api/info?id=${idSong}`,
+      `https://music-player-pink.vercel.app/api/song?id=${idSong}`
+    ]
+    await axios.all(endpoints.map(endpoint => axios.get(endpoint))).then(res => {
+      trackPlayerInit()
+      setup({
+        title: res[0].data.data.title,
+        artist: res[0].data.data.artistsNames,
+        artwork: res[0].data.data.thumbnailM,
+        duration: res[0].data.data.duration,
+        url: res[1].data.data["128"]
+      })
+    })
+  }
+
+
+  const skipNextSong = () => {
+    if (currentIndex == listIdSongLength - 1) {
+      currentIndex = 0
+      setCurrentIdSong(listIdSong[currentIndex])
+    }
+    else {
+      currentIndex++
+      setCurrentIdSong(listIdSong[currentIndex])
+    }
+  }
+  const skipPrevSong = () => {
+    if (currentIndex == 0) {
+      currentIndex = listIdSongLength - 1
+      setCurrentIdSong(listIdSong[currentIndex])
+    }
+    else {
+      currentIndex--
+      setCurrentIdSong(listIdSong[currentIndex])
+    }
+  }
 
   const changeRepeatMode = () => {
     if (repeatMode == "off") {
@@ -93,42 +120,45 @@ export default function MusicPlayer({ route }) {
     ) {
       const track = await TrackPlayer.getTrack(event.nextTrack)
       const { title, artist, artwork } = track
-      setTrackTitle(title)
-      setTrackArtist(artist)
-      setTrackArtwork(artwork)
+      setCurrentTrackTitle(title)
+      setCurrentTrackArtist(artist)
+      setCurrentTrackArtwork(artwork)
     }
   })
 
   useEffect(() => {
-    getStreamSong()
-    TrackPlayer.updateOptions({
-      stopWithApp: false,
-      capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-        Capability.Stop,
-      ],
-      compactCapabilities: [Capability.Play, Capability.Pause],
-    })
+    getSong()
+    // TrackPlayer.updateOptions({
+    //   stopWithApp: true,
+    //   capabilities: [
+    //     Capability.Play,
+    //     Capability.Pause,
+    //     Capability.SkipToNext,
+    //     Capability.SkipToPrevious,
+    //     Capability.Stop,
+    //   ],
+    //   compactCapabilities: [Capability.Play, Capability.Pause],
+    // })
 
-  }, [])
+  }, [currentIdSong])
+
+
+  TrackPlayer.skipToNext()
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
         <View style={styles.mainWork}>
           <Image
-            source={{ uri: trackArtwork }}
+            source={{ uri: currentTrackArtwork }}
             style={styles.imgWork}
             resizeMode="contain"
           />
         </View>
         <View
           style={styles.title}>
-          <Text style={styles.songTitle}>{trackTitle}</Text>
-          <Text style={styles.singerName}>{trackArtist}</Text>
+          <Text style={styles.songTitle}>{currentTrackTitle}</Text>
+          <Text style={styles.singerName}>{currentTrackArtist}</Text>
         </View>
         <View>
           <Slider
@@ -153,7 +183,7 @@ export default function MusicPlayer({ route }) {
         <View style={styles.musicControls}>
           <TouchableOpacity
             style={{}}
-            onPress={() => TrackPlayer.skipToPrevious()}>
+            onPress={() => skipPrevSong()}>
             <Ionicons
               name="play-skip-back-circle-outline"
               size={55} color="#fff"
@@ -166,14 +196,16 @@ export default function MusicPlayer({ route }) {
               <Ionicons
                 name="pause-circle-outline"
                 size={75}
-                color="#E8E8E8" /> : <Ionicons
+                color="#E8E8E8" />
+              :
+              <Ionicons
                 name="play-circle-outline"
                 size={75}
                 color="#E8E8E8" />}
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => TrackPlayer.skipToNext()}>
+            onPress={() => skipNextSong()}>
             <Ionicons
               name="play-skip-forward-circle-outline"
               size={55}

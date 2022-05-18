@@ -7,24 +7,25 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#9966FF",
+    backgroundColor: "#fff",
   },
-  containerHeader: {
+  headerContainer: {
     flex: 1,
-    width: width,
+    width: "100%",
+    justifyContent: "flex-start",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 0.5
   },
   txtHeader: {
     fontSize: 28,
     fontWeight: "600",
     fontStyle: "normal",
-    color: "#fff",
-    letterSpacing: 2,
-    lineHeight: 30,
+    color: "#000",
   },
   containerList: {
-    flex: 5,
+    flex: 8,
     width: width,
     alignItems: "center",
     paddingTop: 15,
@@ -38,6 +39,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
     paddingLeft: 15,
+    borderColor: "#ccc",
+    borderWidth: 1,
+
+
+    shadowOffset: { height: 3, width: 5 },
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
   },
   songTitle: {
     marginLeft: 20,

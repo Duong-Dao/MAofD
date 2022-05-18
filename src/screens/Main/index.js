@@ -13,45 +13,42 @@ import styles from './MainStyles'
 
 
 const options = [
-  { id: "1", icon: "", name: "Nhạc mới" },
-  { id: "2", icon: "", name: "Thể loại" },
-  { id: "3", icon: "", name: "Top 100" },
-  { id: "4", icon: "", name: "Podcast" },
-  { id: "5", icon: "", name: "Karaoke" },
-  { id: "6", icon: "", name: "Vip" },
-  { id: "7", icon: "", name: "Top MV" },
-  { id: "8", icon: "", name: "Sự kiện" }
+  { id: "1", icon: "musical-notes-outline", name: "Nhạc mới", backgroundColor: "#00B2EE" },
+  { id: "2", icon: "", name: "Thể loại", backgroundColor: "#FF7F24", colorIcon: "" },
+  { id: "3", icon: "ios-star-outline", name: "Top 100", backgroundColor: "#B23AEE" },
+  { id: "4", icon: "", name: "Podcast", backgroundColor: "#40E0D0" },
+  { id: "5", icon: "ios-mic-outline", name: "Karaoke", backgroundColor: "#FF3030", },
+  { id: "6", icon: "", name: "Vip", backgroundColor: "#FFC125" },
+  { id: "7", icon: "ios-logo-youtube", name: "Top MV", backgroundColor: "#912CEE" },
+  { id: "8", icon: "ios-calendar-outline", name: "Sự kiện", backgroundColor: "#1C86EE" }
 ]
-
 
 const Main = () => {
   const navigation = useNavigation()
 
 
-  const [playList, setPlayList] = useState([])
-  const [searchTerm, setSearchTerm] = useState("")
   const [banner, setBanner] = useState([])
-  const [vietnamSong, setVietnamSong] = useState([])
-  const [asiaSong, setAsiaSong] = useState([])
-  const [europeSong, setEuropeSong] = useState([])
-  const [concertSong, setConcertSong] = useState([])
+  const [top, setTop] = useState([])
+  const [suggestSong, setSuggestSong] = useState([])
+  const [choiceTodaySong, setChoiceTodaySong] = useState([])
+  const [radio, setRadio] = useState([])
   const typingSearch = useRef(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
-  const fetchPlayList = async () => {
+  const fetchTop100 = async () => {
     await axios.get("https://music-player-pink.vercel.app/api/top100")
       .then(res => {
-        setPlayList(res.data.data[0].items)
-        setVietnamSong(res.data.data[1].items)
-        setAsiaSong(res.data.data[2].items)
-        setEuropeSong(res.data.data[3].items)
-        setConcertSong(res.data.data[4].items)
+        setTop(res.data.data[0].items)
       })
   }
 
-  const fetchBanner = async () => {
+  const fetchHome = async () => {
     await axios.get("https://music-player-pink.vercel.app/api/home?page=1")
       .then(res => {
         setBanner(res.data.data.items[0].items)
+        setSuggestSong(res.data.data.items[3].items)
+        setChoiceTodaySong(res.data.data.items[4].items)
+        setRadio(res.data.data.items[5].items)
       })
   }
 
@@ -81,8 +78,8 @@ const Main = () => {
   }
 
   useEffect(() => {
-    fetchPlayList()
-    fetchBanner()
+    fetchHome()
+    fetchTop100()
   }, [])
 
 
@@ -90,7 +87,7 @@ const Main = () => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-      //onPress={() => navigation.navigate("Top 100")}
+        onPress={() => navigation.navigate("PlayList", { key: item.encodeId })}
       >
         <Image
           style={styles.imgThumbnail}
@@ -101,10 +98,12 @@ const Main = () => {
   }
 
   const renderTopOptions = ({ item }) => {
+    const name = item.icon
     return (
       <View style={styles.topOptionItem}>
         <TouchableOpacity style={styles.btnTopOption}>
-          <View style={styles.topOptionIcon}>
+          <View style={{ backgroundColor: item.backgroundColor, ...styles.topOptionIcon }}>
+            <Ionicons name={name} size={24} color="#fff" />
           </View>
           <Text style={styles.topOptionTitle}>{item.name}</Text>
         </TouchableOpacity>
@@ -114,11 +113,9 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ 
-        justifyContent: "center", 
-        alignItems: "center", 
-        marginTop: 20 }}
-        >
+
+      <ScrollView contentContainerStyle={{ justifyContent: "center", alignItems: "center", marginTop: 20 }}>
+
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.inputSearch}
@@ -158,7 +155,7 @@ const Main = () => {
             </Swiper>
             :
             <View style={[styles.banner, { justifyContent: "center", alignItems: "center" }]}>
-              <ActivityIndicator size="large" color="#000"/>
+              <ActivityIndicator size="large" color="#000"></ActivityIndicator>
             </View>
           }
         </View>
@@ -174,9 +171,11 @@ const Main = () => {
         </View>
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Nổi bật</Text>
+          <Text style={styles.textHeader2}
+            onPress={() => navigation.navigate("Top100")}
+          >Top 100</Text>
           <FlatList
-            data={playList}
+            data={top}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
@@ -186,9 +185,9 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Nhạc Việt Nam</Text>
+          <Text style={styles.textHeader2}>Có thể bạn muốn nghe</Text>
           <FlatList
-            data={vietnamSong}
+            data={suggestSong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
@@ -198,46 +197,33 @@ const Main = () => {
 
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Nhạc Châu Á</Text>
+          <Text style={styles.textHeader2}>Lựa chọn hôm nay</Text>
           <FlatList
-            data={asiaSong}
+            data={choiceTodaySong}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
             horizontal
           />
         </View>
-
 
         <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Nhạc Âu Mỹ</Text>
+          <Text style={styles.textHeader2}>Radio</Text>
           <FlatList
-            data={europeSong}
+            data={radio}
             keyExtractor={(item) => item.encodeId}
             renderItem={({ item }) => renderPlayList({ item })}
             showsHorizontalScrollIndicator={false}
             horizontal
           />
         </View>
-
-
-        <View style={styles.recomendedContainer}>
-          <Text style={styles.textHeader2}>Nhạc Hoà Tấu</Text>
-          <FlatList
-            data={concertSong}
-            keyExtractor={(item) => item.encodeId}
-            renderItem={({ item }) => renderPlayList({ item })}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-          />
-        </View>
-        <View style={{ height: 100 }} />
+        <View style={{ height: 20 }} />
       </ScrollView>
-      <View style={styles.playBottomContainer}>
+      {/* <View style={styles.playBottomContainer}>
         <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
         <Ionicons name="play-circle-outline" size={50} color="black" />
         <Ionicons name="play-skip-forward-circle-outline" size={35} color="black" />
-      </View>
+      </View> */}
     </View>
   )
 }

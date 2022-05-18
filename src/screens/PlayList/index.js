@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity, View, FlatList, ActivityIndicator, Image } from 'react-native'
-// import Ionicons from "react-native-vector-icons/Ionicons"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from './PlayListStyles'
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
@@ -10,11 +10,12 @@ import axios from 'axios'
 const PlayList = ({ route }) => {
 
   const navigation = useNavigation()
-  const idSong = route.params.key.encodeId
+  const idPlayList = route.params.key
   const [song, setSong] = useState([])
+  const arrEncodeId = []
 
   const handleChangeView = (item) => {
-    navigation.navigate("Player", { song: item })
+    navigation.navigate("Player", { key: item.encodeId, keyList: arrEncodeId })
   }
 
   const renderItemInList = ({ item }) => {
@@ -31,7 +32,7 @@ const PlayList = ({ route }) => {
   }
 
   const getSongById = async () => {
-    await axios.get(`https://music-player-pink.vercel.app/api/playlist?id=${idSong}`)
+    await axios.get(`https://music-player-pink.vercel.app/api/playlist?id=${idPlayList}`)
       .then(res => {
         setSong(res.data.data.song.items)
       })
@@ -41,10 +42,23 @@ const PlayList = ({ route }) => {
     getSongById()
   }, [])
 
+  {
+    song.map((item) => {
+      return arrEncodeId.push(item.encodeId)
+    })
+  }
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerList}>
+      <View style={styles.headerContainer}>
+      <TouchableOpacity style={styles.btnBack}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="ios-chevron-back" size={35} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.txtHeader}>Top 100</Text>
+      </View>
         {song.length > 0 ?
           <View style={styles.containerList}>
             <FlatList
@@ -59,7 +73,6 @@ const PlayList = ({ route }) => {
             <ActivityIndicator size="large" />
           </View>
         }
-      </View>
     </View>
   )
 }

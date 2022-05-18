@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff"
   },
   searchContainer: {
     height: 40,
@@ -35,29 +36,31 @@ const styles = StyleSheet.create({
 
     shadowColor: "#000",
     shadowOffset: { height: 3, width: 0 },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.9,
     shadowRadius: 10,
   },
   topOptionContainer: {
     flex: 1,
     paddingLeft: 15,
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 30
   },
   topOptionItem: {
-    height: 80,
-    width: 80,
+    height: 70,
+    width: 70,
     justifyContent: "center",
     alignItems: "center",
   },
   btnTopOption: {
     justifyContent: "center",
-    justifyContent: "center"
+    alignItems: "center",
   },
   topOptionIcon: {
-    width: 50,
-    height: 50,
-    backgroundColor: "magenta",
-    borderRadius: 15
+    width: 35,
+    height: 35,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center"
   },
   topOptionTitle: {
     color: "#000",
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
   recomendedContainer: {
     height: 250,
     marginBottom: 10,
-    marginTop: 50,
+    marginTop: 30,
     width: "100%"
   },
   playBottomContainer: {
@@ -88,6 +91,7 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 25,
     marginLeft: 15,
+    marginRight: 15
   },
   imgThumbnail: {
     borderRadius: 10,
@@ -99,10 +103,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   textHeader2: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "500",
     marginBottom: 20,
-    marginLeft: 30
+    marginLeft: 30,
+    color: "#000"
   },
   wrapper: {},
   banner: {

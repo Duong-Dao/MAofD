@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Stacks from "./src/navigation/stacks"
-import { Favorites } from './src/screens'
-import Top100 from './src/screens/Top100'
+import { Splash } from './src/screens'
+
+
+
 export default function App() {
 
   const [isLoading, setIsLoading] = useState(true)
@@ -10,7 +12,8 @@ export default function App() {
 
     const timerLoading = setTimeout(() => {
       setIsLoading(false)
-    }, 15000)
+    }, 1000)
+
     return () => {
       clearTimeout(timerLoading)
     }
@@ -18,13 +21,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* {isLoading ?
+      {isLoading ?
         <Splash />
         :
-        <PlayList />} */}
-      {/* <Stacks /> */}
-      {/* <Favorites /> */}
-      <Top100 />
+        <Stacks />}
     </View>
   )
 }
@@ -32,6 +32,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff"
   },
 
 });
