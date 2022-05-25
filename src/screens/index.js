@@ -6,5 +6,7 @@ import PlayList from "./PlayList"
 import Favorites from "./Favorites"
 import Top100 from "./Top100"
 import Splash from "./Splash"
+import Register from './Register'
+import SongFavoriteList from "./SongFavoritesList"
 
-export { Main, Login, Setting, MusicPlayer, PlayList, Favorites, Top100,Splash }
+export { Main, Login, Setting, MusicPlayer, PlayList, Favorites, Top100, Splash, Register, SongFavoriteList }

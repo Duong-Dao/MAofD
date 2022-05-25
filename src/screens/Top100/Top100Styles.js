@@ -10,26 +10,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   recomendedContainer: {
-    height: 250,
+    height: 200,
     marginBottom: 10,
-    marginTop: 50,
+    marginTop: 20,
     width: "100%"
   },
   listContainer: {
-    height: 200,
-    width: 200,
+    height: 150,
+    width: 150,
     borderRadius: 25,
     marginLeft: 15,
-    marginRight: 15
+    marginRight: 15,
   },
   imgThumbnail: {
     borderRadius: 10,
-    height: 200,
-    width: 200,
-    shadowColor: "#000",
-    shadowOffset: { height: 3, width: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
+    height: 150,
+    width: 150,
   },
   textHeader2: {
     fontSize: 20,

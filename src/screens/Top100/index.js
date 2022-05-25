@@ -27,7 +27,7 @@ const Top100 = () => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-        onPress={() => navigation.navigate("PlayList", { key: item.encodeId })}
+        onPress={() => navigation.navigate("PlayList", { key: item.encodeId, content: item.title })}
       >
         <Image
           style={styles.imgThumbnail}

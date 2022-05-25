@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-native"
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./LoginStyles"
+import styles from "./RegisterStyles"
 
 
-const Login = () => {
+const Register = () => {
 
   const navigation = useNavigation()
 
@@ -27,18 +27,18 @@ const Login = () => {
       ]
     )
   }
-  const login = () => {
-    if (username === "admin" && password === "admin") {
-      navigation.replace("HomeMusic")
-    }
-    else {
-      showAlert()
-    }
+  const register = () => {
+    // if (username === "admin" && password === "admin") {
+    //   navigation.replace("HomeMusic")
+    // }
+    // else {
+    showAlert()
+    // }
   }
 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
-
+  const [confirmPassword, setConfirmPassword] = useState()
 
   const handleChangeUsername = (value) => {
     setUsername(value)
@@ -46,6 +46,10 @@ const Login = () => {
 
   const handleChangePassword = (value) => {
     setPassword(value)
+  }
+
+  const handleConfirmPassword = (value) => {
+    setConfirmPassword(value)
   }
 
 
@@ -58,7 +62,6 @@ const Login = () => {
       <View>
       </View>
       <View style={styles.formContainer}>
-        {/* <Text>Form and Submit</Text> */}
         <TextInput
           style={styles.inputAccount}
           placeholder="Tên đăng nhập"
@@ -72,33 +75,28 @@ const Login = () => {
           value={password}
           onChangeText={(value) => handleChangePassword(value)}
         />
+
+        <TextInput
+          style={styles.inputAccount}
+          placeholder="Nhập lại mật khẩu"
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={(value) => handleConfirmPassword(value)}
+        />
+
+
         <TouchableOpacity style={styles.btnSubmit}
-          onPress={() => login()}>
-          <Text style={styles.txtSubmit}>Login</Text>
+          onPress={() => register()}>
+          <Text style={styles.txtSubmit}>Đăng kí</Text>
         </TouchableOpacity>
-        <Text style={{ color: "#000" }}>Chưa có tài khoản?
+        <Text style={{ color: "#000" }}>Đã có tài khoản?
           <Text
             style={{ fontWeight: "800", color: "#000" }}
-            onPress={() => navigation.navigate("Register")}>  Tạo tài khoản</Text>
+            onPress={() => navigation.navigate("Login")}>  Đăng nhập</Text>
         </Text>
-      </View>
-      <View style={{ height: 50, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-        <View style={{ width: 120, height: 2, backgroundColor: "#fff" }}></View>
-        <Text style={{ marginHorizontal: 30, fontSize: 16, fontWeight: "400", color: "#fff" }}>Hoặc</Text>
-        <View style={{ width: 120, height: 2, backgroundColor: "#fff" }}></View>
-      </View>
-      <View>
-        <TouchableOpacity
-          style={styles.btnLoginGoogle}
-          onPress={() => login()}
-          activeOpacity={0.6}
-        >
-          <Ionicons name="logo-google" size={24} color="#fff" />
-          <Text style={styles.txtLogin}>Đăng nhập bằng Google</Text>
-        </TouchableOpacity>
       </View>
     </View>
   )
 }
 
-export default Login
+export default Register

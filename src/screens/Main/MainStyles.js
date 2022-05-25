@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   recomendedContainer: {
-    height: 250,
+    height: 200,
     marginBottom: 10,
     marginTop: 30,
-    width: "100%"
+    width: "100%",
+    // backgroundColor: "red"
   },
   playBottomContainer: {
     backgroundColor: "#fff",
@@ -87,20 +88,16 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   listContainer: {
-    height: 200,
-    width: 200,
-    borderRadius: 25,
+    height: 150,
+    width: 150,
+    borderRadius: 20,
     marginLeft: 15,
-    marginRight: 15
+    marginRight: 15,
   },
   imgThumbnail: {
     borderRadius: 10,
-    height: 200,
-    width: 200,
-    shadowColor: "#000",
-    shadowOffset: { height: 3, width: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
+    height: 150,
+    width: 150,
   },
   textHeader2: {
     fontSize: 20,

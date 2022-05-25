@@ -30,8 +30,6 @@ import { togglePlayback, setup, trackPlayerInit, slidingCompleted } from "./Musi
 
 export default function MusicPlayer({ route }) {
 
-
-
   const playbackState = usePlaybackState()
   const progress = useProgress()
   const listIdSong = route.params.keyList
@@ -49,7 +47,6 @@ export default function MusicPlayer({ route }) {
   // const [trackDuration, setTrackDuration] = useState()
   // const [trackUrl, setTrackUrl] = useState()
   // const [track, setTrack] = useState()
-
 
   let currentIndex = listIdSong.findIndex((item) => item === currentIdSong)
 
@@ -128,17 +125,17 @@ export default function MusicPlayer({ route }) {
 
   useEffect(() => {
     getSong()
-    // TrackPlayer.updateOptions({
-    //   stopWithApp: true,
-    //   capabilities: [
-    //     Capability.Play,
-    //     Capability.Pause,
-    //     Capability.SkipToNext,
-    //     Capability.SkipToPrevious,
-    //     Capability.Stop,
-    //   ],
-    //   compactCapabilities: [Capability.Play, Capability.Pause],
-    // })
+    TrackPlayer.updateOptions({
+      stopWithApp: true,
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
+    })
 
   }, [currentIdSong])
 

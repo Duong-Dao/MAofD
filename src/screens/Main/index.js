@@ -14,11 +14,11 @@ import styles from './MainStyles'
 
 const options = [
   { id: "1", icon: "musical-notes-outline", name: "Nhạc mới", backgroundColor: "#00B2EE" },
-  { id: "2", icon: "", name: "Thể loại", backgroundColor: "#FF7F24", colorIcon: "" },
+  { id: "2", icon: "bookmarks-outline", name: "Thể loại", backgroundColor: "#FF7F24", colorIcon: "" },
   { id: "3", icon: "ios-star-outline", name: "Top 100", backgroundColor: "#B23AEE" },
-  { id: "4", icon: "", name: "Podcast", backgroundColor: "#40E0D0" },
+  // { id: "4", icon: "", name: "Podcast", backgroundColor: "#40E0D0" },
   { id: "5", icon: "ios-mic-outline", name: "Karaoke", backgroundColor: "#FF3030", },
-  { id: "6", icon: "", name: "Vip", backgroundColor: "#FFC125" },
+  // { id: "6", icon: "", name: "Vip", backgroundColor: "#FFC125" },
   { id: "7", icon: "ios-logo-youtube", name: "Top MV", backgroundColor: "#912CEE" },
   { id: "8", icon: "ios-calendar-outline", name: "Sự kiện", backgroundColor: "#1C86EE" }
 ]
@@ -87,7 +87,7 @@ const Main = () => {
     return (
       <TouchableOpacity
         style={styles.listContainer}
-        onPress={() => navigation.navigate("PlayList", { key: item.encodeId })}
+        onPress={() => navigation.navigate("PlayList", { key: item.encodeId, content: item.title })}
       >
         <Image
           style={styles.imgThumbnail}
@@ -98,12 +98,12 @@ const Main = () => {
   }
 
   const renderTopOptions = ({ item }) => {
-    const name = item.icon
+
     return (
       <View style={styles.topOptionItem}>
         <TouchableOpacity style={styles.btnTopOption}>
           <View style={{ backgroundColor: item.backgroundColor, ...styles.topOptionIcon }}>
-            <Ionicons name={name} size={24} color="#fff" />
+            <Ionicons name={item.icon} size={24} color="#fff" />
           </View>
           <Text style={styles.topOptionTitle}>{item.name}</Text>
         </TouchableOpacity>
@@ -173,7 +173,9 @@ const Main = () => {
         <View style={styles.recomendedContainer}>
           <Text style={styles.textHeader2}
             onPress={() => navigation.navigate("Top100")}
-          >Top 100</Text>
+          >Top 100 &gt;
+          </Text>
+
           <FlatList
             data={top}
             keyExtractor={(item) => item.encodeId}
