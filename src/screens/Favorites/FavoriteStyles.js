@@ -8,18 +8,21 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   headerContainer: {
-    backgroundColor: "magenta",
-    width: "100%",
-    height: 120
+    backgroundColor: "#fff",
+    width: width,
+    height: 80,
+    justifyContent: "center",
+
   },
   headerTitle: {
     color: "#000",
-    fontSize: 18,
-    fontWeight: "600"
+    fontSize: 26,
+    fontWeight: "600",
+    marginLeft: 15
   },
   favoriteListContainer: {
     backgroundColor: "#fff",
-    width: "100%",
+    width: width,
   },
   favoriteSong: {
 
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   titleContent: {
-    fontSize: 24,
+    fontSize: 18,
     color: "#000",
     fontWeight: "600",
     marginLeft: 20,
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.4
   },
   iconLibralyContainer: {
-    // padding: 10,
+
 
   },
   iconLibraly: {

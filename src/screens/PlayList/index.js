@@ -26,7 +26,7 @@ const PlayList = ({ route }) => {
   }
 
   const handleChangeView = (item) => {
-    navigation.navigate("Player", { key: item.encodeId, keyList: arrEncodeId })
+    navigation.navigate("Player", { key: item.encodeId, keyList: arrEncodeId, idList: idPlayList })
   }
 
   const renderItemInList = ({ item }) => {
@@ -44,8 +44,6 @@ const PlayList = ({ route }) => {
       </TouchableOpacity>
     )
   }
-
-
 
   useEffect(() => {
     getSongById()

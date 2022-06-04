@@ -16,24 +16,13 @@ import TrackPlayer, {
 } from "react-native-track-player"
 
 import { togglePlayback, setup, trackPlayerInit, slidingCompleted } from "./MusicPlayerController"
-
-
-// const track3 = {
-//   url: 'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
-//   title: 'Avaritia',
-//   artist: 'deadmau5',
-//   album: 'while(1<2)',
-//   artwork: "https://random.imagecdn.app/500/150",
-//   duration: 508
-// }
-
+import { Top100HanQuoc, Top100NhacTre, Top100PopAuMy, PopBallad, Bolero } from "../../assets/song"
 
 export default function MusicPlayer({ route }) {
 
   const playbackState = usePlaybackState()
   const progress = useProgress()
-  const listIdSong = route.params.keyList
-  const listIdSongLength = listIdSong.length
+  // const listIdSong = route.params.keyList
   const [currentIdSong, setCurrentIdSong] = useState(route.params.key)
   const [currentTrackArtist, setCurrentTrackArtist] = useState()
   const [currentTrackArtwork, setCurrentTrackArtwork] = useState()
@@ -48,7 +37,37 @@ export default function MusicPlayer({ route }) {
   // const [trackUrl, setTrackUrl] = useState()
   // const [track, setTrack] = useState()
 
-  let currentIndex = listIdSong.findIndex((item) => item === currentIdSong)
+
+
+  const start = () => {
+    if (route.params.idList == Top100NhacTre.encodeId) {
+      let indexCurrentSong = Top100NhacTre.songs.findIndex(item => item.encodeId === currentIdSong)
+      setup(Top100NhacTre.songs, indexCurrentSong)
+
+    }
+    if (route.params.idList == Top100PopAuMy.encodeId) {
+      let indexCurrentSong = Top100PopAuMy.songs.findIndex(item => item.encodeId === currentIdSong)
+      setup(Top100PopAuMy.songs, indexCurrentSong)
+
+    }
+    if (route.params.idList == Top100HanQuoc.encodeId) {
+      let indexCurrentSong = Top100HanQuoc.songs.findIndex(item => item.encodeId === currentIdSong)
+      setup(Top100HanQuoc.songs, indexCurrentSong)
+
+    }
+    if (route.params.idList == Bolero.encodeId) {
+      let indexCurrentSong = Bolero.songs.findIndex(item => item.encodeId === currentIdSong)
+      setup(Bolero.songs, indexCurrentSong)
+
+    }
+    if (route.params.idList == PopBallad.encodeId) {
+      let indexCurrentSong = PopBallad.songs.findIndex(item => item.encodeId === currentIdSong)
+      setup(PopBallad.songs, indexCurrentSong)
+
+    }
+  }
+
+
 
 
   const getSong = async () => {
@@ -123,24 +142,31 @@ export default function MusicPlayer({ route }) {
     }
   })
 
+  // useEffect(() => {
+  //   // getSong()
+  //   trackPlayerInit()
+  //   setup(Top100NhacTre.songs)
+
+  //   TrackPlayer.updateOptions({
+  //     stopWithApp: true,
+  //     capabilities: [
+  //       Capability.Play,
+  //       Capability.Pause,
+  //       Capability.SkipToNext,
+  //       Capability.SkipToPrevious,
+  //       Capability.Stop,
+  //     ],
+  //     compactCapabilities: [Capability.Play, Capability.Pause],
+  //   })
+
+  // }, [currentIdSong])
+
   useEffect(() => {
-    getSong()
-    TrackPlayer.updateOptions({
-      stopWithApp: true,
-      capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-        Capability.Stop,
-      ],
-      compactCapabilities: [Capability.Play, Capability.Pause],
-    })
-
-  }, [currentIdSong])
+    trackPlayerInit()
+    start()
+  }, [])
 
 
-  TrackPlayer.skipToNext()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -180,7 +206,7 @@ export default function MusicPlayer({ route }) {
         <View style={styles.musicControls}>
           <TouchableOpacity
             style={{}}
-            onPress={() => skipPrevSong()}>
+            onPress={() => TrackPlayer.skipToPrevious()}>
             <Ionicons
               name="play-skip-back-circle-outline"
               size={55} color="#fff"
@@ -202,7 +228,7 @@ export default function MusicPlayer({ route }) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => skipNextSong()}>
+            onPress={() => TrackPlayer.skipToNext()}>
             <Ionicons
               name="play-skip-forward-circle-outline"
               size={55}

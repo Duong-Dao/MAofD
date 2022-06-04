@@ -1,43 +1,83 @@
-import React, { useState } from "react"
+import axios from "axios"
+import React, { useState, useEffect } from "react"
 import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-native"
 import { useNavigation } from '@react-navigation/native'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./LoginStyles"
-
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const Login = () => {
 
   const navigation = useNavigation()
 
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
+
+  const [account, setAccount] = useState()
+
   const showAlert = () => {
     Alert.alert(
-      "Đăng nhập thất bại",
-      "Thông tin tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại.",
+      "Đăng nhập thất bại!",
+      `Thông tin tài khoản hoặc mật khẩu không chính xác.
+Vui lòng nhập lại.`,
       [
         {
           text: "Ok",
-          //onPress: () => Alert.alert("Cancel Pressed"),
           style: "Ok",
         },
-        // {
-        //   text: "Cancel",
-        //   //onPress: () => Alert.alert("Cancel Pressed"),
-        //   style: "cancel",
-        // },
       ]
     )
   }
-  const login = () => {
-    if (username === "admin" && password === "admin") {
-      navigation.replace("HomeMusic")
-    }
-    else {
-      showAlert()
-    }
+  // const login = () => {
+  //   if (username === "admin" && password === "admin") {
+  //     // navigation.replace("HomeMusic")
+  //   }
+  //   else {
+  //     showAlert()
+  //   }
+  // }
+
+
+  const getUser = async () => {
+    axios.get("https://623c81458e9af58789521e31.mockapi.io/duongd/api/v1/user")
+      .then(res =>
+        // console.log(res.data)
+        setAccount(res.data)
+      )
   }
 
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  useEffect(() => {
+    getUser()
+  }, [])
+
+  const storeUser = async (value) => {
+    try {
+      const userJson = JSON.stringify(value)
+      await AsyncStorage.setItem("@user", userJson)
+    } catch (e) {
+      console.log(e);
+    }
+
+
+  }
+
+
+  const logIn = () => {
+    let isSuccess = false;
+    account.forEach(async (item) => {
+      if (item.username === username && item.password === password) {
+        isSuccess = true;
+        await storeUser(item)
+        navigation.replace("HomeMusic")
+
+      }
+    });
+    if (!isSuccess) {
+      showAlert()
+    } else {
+      console.log("Thanh cong");
+    }
+  };
 
 
   const handleChangeUsername = (value) => {
@@ -58,7 +98,6 @@ const Login = () => {
       <View>
       </View>
       <View style={styles.formContainer}>
-        {/* <Text>Form and Submit</Text> */}
         <TextInput
           style={styles.inputAccount}
           placeholder="Tên đăng nhập"
@@ -73,8 +112,8 @@ const Login = () => {
           onChangeText={(value) => handleChangePassword(value)}
         />
         <TouchableOpacity style={styles.btnSubmit}
-          onPress={() => login()}>
-          <Text style={styles.txtSubmit}>Login</Text>
+          onPress={() => logIn()}>
+          <Text style={styles.txtSubmit}>Đăng nhập</Text>
         </TouchableOpacity>
         <Text style={{ color: "#000" }}>Chưa có tài khoản?
           <Text
@@ -90,7 +129,7 @@ const Login = () => {
       <View>
         <TouchableOpacity
           style={styles.btnLoginGoogle}
-          onPress={() => login()}
+          onPress={() => logIn()}
           activeOpacity={0.6}
         >
           <Ionicons name="logo-google" size={24} color="#fff" />

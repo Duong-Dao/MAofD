@@ -1,44 +1,57 @@
 import React, { useState } from "react"
 import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-native"
 import { useNavigation } from '@react-navigation/native'
-import Ionicons from "react-native-vector-icons/Ionicons"
+// import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./RegisterStyles"
-
+import axios from "axios"
 
 const Register = () => {
 
   const navigation = useNavigation()
 
-  const showAlert = () => {
+  const registerSuccess = () => {
     Alert.alert(
-      "Đăng nhập thất bại",
-      "Thông tin tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại.",
+      "Đăng kí thành công.",
+      "Bạn đã đăng ký tài khoản thành công.",
       [
         {
-          text: "Ok",
-          //onPress: () => Alert.alert("Cancel Pressed"),
+          text: "OK",
+          onPress: () => navigation.replace("Login"),
           style: "Ok",
         },
-        // {
-        //   text: "Cancel",
-        //   //onPress: () => Alert.alert("Cancel Pressed"),
-        //   style: "cancel",
-        // },
       ]
     )
   }
-  const register = () => {
-    // if (username === "admin" && password === "admin") {
-    //   navigation.replace("HomeMusic")
-    // }
-    // else {
-    showAlert()
-    // }
+
+  const registerError = () => {
+    Alert.alert(
+      "Đăng ký không thành công.",
+      "Vui lòng nhập lại chính xác mật khẩu.",
+      [
+        {
+          text: "Ok",
+          style: "Ok",
+        },
+      ]
+    )
+  }
+  const register = async () => {
+    if (password === confirmPassword) {
+      try {
+        await axios.post("https://623c81458e9af58789521e31.mockapi.io/duongd/api/v1/user", { username, password })
+      } catch (error) {
+        console.log(error)
+      }
+      registerSuccess()
+    }
+    else {
+      registerError()
+    }
   }
 
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
-  const [confirmPassword, setConfirmPassword] = useState()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const handleChangeUsername = (value) => {
     setUsername(value)

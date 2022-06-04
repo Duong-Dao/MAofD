@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native"
 
-
+const { width, height } = Dimensions.get("screen")
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -35,6 +35,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  listContainer: {
+    // backgroundColor: "red",
+    width: width,
+    height: "100%",
+    alignItems: "center",
+    paddingTop: 15
+  },
+  songItem: {
+    height: 65,
+    width: width - 20,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    marginVertical: 5,
+    borderWidth: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center", paddingLeft: 15
+  },
   btnLogin: {
     backgroundColor: "red",
     height: 35,
@@ -43,6 +61,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: "center",
     alignItems: "center"
+  },
+  songImage: {
+    height: 45,
+    width: 45,
+    borderRadius: 10
+  },
+  songName: {
+    color: "#262626",
+    fontSize: 16,
+    fontWeight: "400", 
+    marginLeft: 15
   }
 
 })

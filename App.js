@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Stacks from "./src/navigation/stacks"
-import { Login, Splash } from './src/screens'
-import SongFavoriteList from './src/screens/SongFavoritesList'
-
-
+import { Splash } from './src/screens'
 
 
 export default function App() {
@@ -24,13 +21,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* {isLoading ?
+      {isLoading ?
         <Splash />
         :
-        <Stacks />} */}
-      {/* <SongFavoriteList /> */}
-      <Stacks />
-
+        <Stacks />}
+      {/* <Stacks /> */}
     </View>
   )
 }

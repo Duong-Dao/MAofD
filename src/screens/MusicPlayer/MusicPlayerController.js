@@ -28,7 +28,7 @@ const slidingCompleted = async (value) => {
 }
 
 
-const setup = async (track) => {
+const setup = async (track, index) => {
   const currentTrack = await TrackPlayer.getCurrentTrack()
   if (currentTrack !== null) {
     return
@@ -37,9 +37,11 @@ const setup = async (track) => {
     await TrackPlayer.setupPlayer({})
       .then(async () => {
         await TrackPlayer.reset()
-        await TrackPlayer.add([track])
+        // await TrackPlayer.add([track])
+        await TrackPlayer.add(track)
+        await TrackPlayer.skip(index)
         await TrackPlayer.play()
-        // TrackPlayer.setRepeatMode(RepeatMode.Off)
+        TrackPlayer.setRepeatMode(RepeatMode.Off)
       })
   }
 }

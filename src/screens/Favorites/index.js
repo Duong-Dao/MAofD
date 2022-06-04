@@ -1,29 +1,97 @@
 import React, { useState } from 'react'
-import { ScrollView, Text, TouchableOpacity, View, Image, Modal, Pressable } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View, Image, Modal, Pressable, TextInput, Switch } from 'react-native'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import styles from './FavoriteStyles'
 import { useNavigation } from '@react-navigation/native'
-
 import Feather from "react-native-vector-icons/Feather"
-import { TextInput } from 'react-native-gesture-handler'
+
+
+
+
+const playlist = [{ id: 1, image: "", namePlaylist: "List 1" },
+{ id: 2, image: "", namePlaylist: "List 2" },
+{ id: 3, image: "", namePlaylist: "List 3" },
+]
 
 const Favorites = () => {
 
   const navigation = useNavigation()
 
   const [visibleModalCreatePlaylist, setVisibleModalCreatePlaylist] = useState(false)
+  const [newNamePlaylist, setNewNamePlaylist] = useState("")
+  const [privatePlaylist, setPrivatePlaylist] = useState(0)
+  const [playAZ, setPlayAZ] = useState(0)
+
+  const handleShowModalCreatePlaylist = () => {
+    setVisibleModalCreatePlaylist(true)
+    setNewNamePlaylist("")
+  }
+
+  const handleChangePrivate = () => {
+    setPrivatePlaylist(!privatePlaylist)
+  }
+
+  const handleChangePlayAZ = () => {
+    setPlayAZ(!playAZ)
+  }
+
+  const handleChangeNewNamePlaylist = (e) => {
+    console.log(e);
+    setNewNamePlaylist(e)
+  }
+
+  const handleCreatePlaylist = () => {
+    const i = playlist.length
+    if (newNamePlaylist === "") return
+    let newPlaylist = {
+      id: i + 1,
+      namePlaylist: newNamePlaylist,
+      image: ""
+    }
+
+    playlist.push(newPlaylist)
+    setVisibleModalCreatePlaylist(!visibleModalCreatePlaylist)
+  }
+
+  const renderList = (item) => {
+    return (
+      <TouchableOpacity
+        key={item.id}
+        style={{
+          flexDirection: "row",
+          height: 45,
+          margin: 5,
+          alignItems: "center",
+          padding: 10
+        }}>
+        <View style={{
+          height: 35, width: 35,
+          borderRadius: 5,
+          backgroundColor: "#f0f0f0", marginRight: 15, justifyContent: "center", alignItems: "center"
+        }} >
+          <Ionicons name="ios-musical-notes-outline" size={20} color="#262626" />
+        </View>
+        <Text style={{
+          color: "#000"
+        }}>{item.namePlaylist}</Text>
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Header</Text>
+        <Text style={styles.headerTitle}>Thư viện</Text>
       </View>
 
-      <ScrollView style={styles.favoriteListContainer}>
+      <ScrollView
+
+        style={styles.favoriteListContainer}>
+
         <View style={{ marginTop: 20, marginBottom: 10 }}>
-          <Text style={styles.titleContent}>Thư viện</Text>
+          <Text style={styles.titleContent}>Lựa chọn của bạn</Text>
 
           <ScrollView
             horizontal
@@ -122,7 +190,7 @@ const Favorites = () => {
                 justifyContent: "center",
                 alignItems: "center"
               }}
-              onPress={() => setVisibleModalCreatePlaylist(true)}
+              onPress={() => handleShowModalCreatePlaylist()}
             >
               <Feather name='plus-circle' size={20} color="#fff" />
 
@@ -134,8 +202,10 @@ const Favorites = () => {
               color: "#000"
             }}>Tạo Playlist mới</Text>
           </View>
-          <View>
-            <Text>list playlist</Text>
+          <View style={{
+            marginTop: 10, width: "95%"
+          }}>
+            {playlist.map((item) => renderList(item))}
           </View>
 
         </View>
@@ -145,8 +215,7 @@ const Favorites = () => {
             transparent={true}
             visible={visibleModalCreatePlaylist}
             onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setVisibleModalCreatePlaylist(!visibleModalCreatePlaylist);
+              setVisibleModalCreatePlaylist(!visibleModalCreatePlaylist)
             }}
           >
             <View style={{
@@ -157,40 +226,57 @@ const Favorites = () => {
               <View style={styles.modalContainer}>
                 <View style={{
                   height: 50,
-                  width: 50,
-                  backgroundColor: "red",
+                  width: "100%",
+                  justifyContent: "flex-start",
+                  alignItems: "flex-end"
                 }}>
 
-
+                  <Ionicons name='ios-close-outline' size={24} color="#000" onPress={() => setVisibleModalCreatePlaylist(false)} />
                 </View>
-                <View>
+                <View style={{
+                  width: "100%"
+                }}>
                   <View style={{
-                    flexDirection: "row", width: "100%", backgroundColor: "#ccc", alignItems: "center", justifyContent: "space-around", marginBottom: 15
+                    flexDirection: "row", width: "100%", alignItems: "center", justifyContent: "space-between", marginBottom: 15
                   }}>
 
                     <Text style={{
-                      textAlign: "left"
+                      textAlign: "left", color: "#000"
                     }}>Tên</Text>
 
-                    <TextInput placeholder='ten playlist' style={{
-                      height: 34,
-                      borderBottomWidth: 1,
-                      width: "80%"
-                    }} />
+                    <TextInput autoFocus
+                      onChangeText={(e) => handleChangeNewNamePlaylist(e)}
+                      style={{
+                        height: 34,
+                        borderBottomWidth: 0.6,
+                        width: "80%"
+                      }} />
                   </View>
                   <View style={{
-                    flexDirection: "row", width: "100%", backgroundColor: "#ccc", alignItems: "center", justifyContent: "space-around", marginBottom: 15
+                    flexDirection: "row", width: "100%", alignItems: "center", justifyContent: "space-between", marginBottom: 15
                   }}>
 
                     <Text style={{
-                      textAlign: "left"
-                    }}>Tên</Text>
+                      textAlign: "left", color: "#000"
+                    }}>Riêng tư</Text>
 
-                    <TextInput placeholder='ten playlist' style={{
-                      height: 34,
-                      borderBottomWidth: 1,
-                      width: "80%"
-                    }} />
+                    <Switch
+                      // trackColor={{ false: "#ccc", true: "orange" }}
+                      value={privatePlaylist}
+                      onValueChange={() => handleChangePrivate()} />
+                  </View>
+                  <View style={{
+                    flexDirection: "row", width: "100%", alignItems: "center", justifyContent: "space-between", marginBottom: 15
+                  }}>
+
+                    <Text style={{
+                      textAlign: "left", color: "#000"
+                    }}>Phát tuần tự</Text>
+
+                    <Switch
+                      // trackColor={{ false: "#ccc", true: "orange" }}
+                      value={playAZ}
+                      onValueChange={() => handleChangePlayAZ()} />
                   </View>
                 </View>
 
@@ -199,15 +285,16 @@ const Favorites = () => {
                     borderRadius: 20,
                     padding: 10,
                     elevation: 2,
-                    backgroundColor: "red"
+                    backgroundColor: "red",
+                    width: 150
                   }}
-                  onPress={() => setVisibleModalCreatePlaylist(!visibleModalCreatePlaylist)}
+                  onPress={() => handleCreatePlaylist()}
                 >
                   <Text style={{
                     color: "white",
                     fontWeight: "bold",
                     textAlign: "center"
-                  }}>Tạo</Text>
+                  }}>Tạo Playlist</Text>
                 </Pressable>
 
 

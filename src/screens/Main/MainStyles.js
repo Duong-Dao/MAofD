@@ -69,9 +69,8 @@ const styles = StyleSheet.create({
   recomendedContainer: {
     height: 200,
     marginBottom: 10,
-    marginTop: 30,
+    marginTop: 10,
     width: "100%",
-    // backgroundColor: "red"
   },
   playBottomContainer: {
     backgroundColor: "#fff",

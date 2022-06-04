@@ -4,11 +4,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import {
   FlatList, Image,
   ScrollView, Text, TextInput,
-  TouchableOpacity, View, ActivityIndicator
+  TouchableOpacity, View, ActivityIndicator, Keyboard
 } from 'react-native'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Swiper from 'react-native-swiper'
 import styles from './MainStyles'
+import { clear } from 'react-native/Libraries/LogBox/Data/LogBoxData'
 
 
 
@@ -16,9 +17,7 @@ const options = [
   { id: "1", icon: "musical-notes-outline", name: "Nhạc mới", backgroundColor: "#00B2EE" },
   { id: "2", icon: "bookmarks-outline", name: "Thể loại", backgroundColor: "#FF7F24", colorIcon: "" },
   { id: "3", icon: "ios-star-outline", name: "Top 100", backgroundColor: "#B23AEE" },
-  // { id: "4", icon: "", name: "Podcast", backgroundColor: "#40E0D0" },
   { id: "5", icon: "ios-mic-outline", name: "Karaoke", backgroundColor: "#FF3030", },
-  // { id: "6", icon: "", name: "Vip", backgroundColor: "#FFC125" },
   { id: "7", icon: "ios-logo-youtube", name: "Top MV", backgroundColor: "#912CEE" },
   { id: "8", icon: "ios-calendar-outline", name: "Sự kiện", backgroundColor: "#1C86EE" }
 ]
@@ -34,6 +33,9 @@ const Main = () => {
   const [radio, setRadio] = useState([])
   const typingSearch = useRef(null)
   const [searchTerm, setSearchTerm] = useState("")
+  const [showSearch, setShowSearch] = useState(false)
+
+  const [result, setResult] = useState()
 
   const fetchTop100 = async () => {
     await axios.get("https://music-player-pink.vercel.app/api/top100")
@@ -52,30 +54,67 @@ const Main = () => {
       })
   }
 
-  const handleSearch = (value) => {
-    let keyword = value.split(" ").join("-")
+  // const SearchContainer = () => {
+  //   return (
+  //     <View style={{
+  //       height: 150,
+  //       width: "100%",
+  //       backgroundColor: "green",
+  //       zIndex: 99999
+  //     }}>
+  //       {result ?
+  //         <View>
+  //           <Text key={result.encodeId}>{result.title || result.name}</Text>
+  //         </View>
+  //         :
+  //         <Text>Kết quả tìm thấy</Text>
+  //       }
+  //     </View>
+  //   )
+  // }
 
-    if (keyword === "") return
+  // const handleShowSearch = () => {
+  //   setShowSearch(true)
+  //   setShowCloseButton(true)
+  // }
 
-    axios.get(`https://music-player-pink.vercel.app/api/search?keyword=${keyword}`)
-      .then(res => {
-        console.log("ressss", res.data.data.top["title"]);
-      })
-  }
+  // const handleHideSearch = () => {
+  //   setSearchTerm("")
+  //   Keyboard.dismiss()
+  //   setShowSearch(false)
+  //   setShowCloseButton(false)
+  // }
 
-  const handleChangeValueSearch = (valueSearch) => {
+  // const handleSearch = (value) => {
+  //   let keyword = value.split(" ").join("-")
 
-    setSearchTerm(valueSearch)
+  //   if (keyword === "") return
 
-    if (typingSearch.current) {
-      clearTimeout(typingSearch.current)
-    }
+  //   axios.get(`https://music-player-pink.vercel.app/api/search?keyword=${keyword}`)
+  //     .then(res => {
+  //       if (res.status == 200) {
+  //         console.log("ressss", res.data.data);
+  //         setResult(res.data.data)
+  //       }
+  //       else {
+  //         setResult("")
+  //       }
+  //     })
+  // }
 
-    typingSearch.current = setTimeout(() => {
-      handleSearch(valueSearch)
-    }, 500)
+  // const handleChangeValueSearch = (valueSearch) => {
 
-  }
+  //   setSearchTerm(valueSearch)
+
+  //   if (typingSearch.current) {
+  //     clearTimeout(typingSearch.current)
+  //   }
+
+  //   typingSearch.current = setTimeout(() => {
+  //     handleSearch(valueSearch)
+  //   }, 500)
+
+  // }
 
   useEffect(() => {
     fetchHome()
@@ -116,13 +155,34 @@ const Main = () => {
 
       <ScrollView contentContainerStyle={{ justifyContent: "center", alignItems: "center", marginTop: 20 }}>
 
-        <View style={styles.searchContainer}>
-          <TextInput
+        {/* <View style={styles.searchContainer}> */}
+          {/* <TextInput
             style={styles.inputSearch}
             value={searchTerm}
             placeholder="Nhập tên ca sĩ, tên bài hát"
-            onChangeText={e => handleChangeValueSearch(e)} />
-        </View>
+            onChangeText={e => handleChangeValueSearch(e)}
+            onFocus={() => handleShowSearch()}
+            onSubmitEditing={() => {
+              Keyboard.dismiss()
+              setShowSearch(false)
+            }}
+          />
+          {showCloseButton ?
+            <TouchableOpacity style={{
+              position: "absolute",
+              right: 10,
+              top: 10
+            }}
+              onPress={() => handleHideSearch()}
+            >
+              <Ionicons name='close-circle-outline' size={18} color="#000" />
+            </TouchableOpacity>
+            :
+            null
+          }
+
+          {showSearch ? <SearchContainer /> : null} */}
+        {/* </View> */}
 
         <View style={styles.bannerContainer}>
           {banner.length > 0 ?
@@ -173,7 +233,7 @@ const Main = () => {
         <View style={styles.recomendedContainer}>
           <Text style={styles.textHeader2}
             onPress={() => navigation.navigate("Top100")}
-          >Top 100 &gt;
+          >Top 100
           </Text>
 
           <FlatList
@@ -221,11 +281,6 @@ const Main = () => {
         </View>
         <View style={{ height: 20 }} />
       </ScrollView>
-      {/* <View style={styles.playBottomContainer}>
-        <Ionicons name="play-skip-back-circle-outline" size={35} color="black" />
-        <Ionicons name="play-circle-outline" size={50} color="black" />
-        <Ionicons name="play-skip-forward-circle-outline" size={35} color="black" />
-      </View> */}
     </View>
   )
 }

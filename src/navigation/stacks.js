@@ -25,7 +25,7 @@ const Stacks = () => {
 
       }}
         initialRouteName="HomeMusic">
-        <Stack.Screen name="HomeMusic" component={HomeMusic} />
+        <Stack.Screen name="HomeMusic" component={HomeMusic}  />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
