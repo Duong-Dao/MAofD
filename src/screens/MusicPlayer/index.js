@@ -73,8 +73,8 @@ export default function MusicPlayer({ route }) {
   const getSong = async () => {
     const idSong = currentIdSong
     let endpoints = [
-      `https://music-player-pink.vercel.app/api/info?id=${idSong}`,
-      `https://music-player-pink.vercel.app/api/song?id=${idSong}`
+      `https://ma-of-d-sever.vercel.app/api/info?id=${idSong}`,
+      `https://ma-of-d-sever.vercel.app/api/song?id=${idSong}`
     ]
     await axios.all(endpoints.map(endpoint => axios.get(endpoint))).then(res => {
       trackPlayerInit()

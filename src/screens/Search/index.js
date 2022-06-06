@@ -35,7 +35,7 @@ const Search = () => {
     let str = removeVietnameseTones(value)
     let keyword = str.split(" ").join("-")
     if (keyword === "") return
-    axios.get(`https://music-player-pink.vercel.app/api/search?keyword=${keyword}`)
+    axios.get(`https://ma-of-d-sever.vercel.app/api/search?keyword=${keyword}`)
       .then(res => {
         if (res.status == 200) {
           setResult(res.data.data.top)

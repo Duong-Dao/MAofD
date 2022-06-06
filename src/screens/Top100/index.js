@@ -12,7 +12,7 @@ const Top100 = () => {
   const navigation = useNavigation()
 
   const fetchTop = async () => {
-    await axios.get("https://music-player-pink.vercel.app/api/top100")
+    await axios.get("https://ma-of-d-sever.vercel.app/api/top100")
       .then(res => {
         setTotalData(res.data.data)
       })

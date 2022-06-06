@@ -38,14 +38,14 @@ const Main = () => {
   const [result, setResult] = useState()
 
   const fetchTop100 = async () => {
-    await axios.get("https://music-player-pink.vercel.app/api/top100")
+    await axios.get("https://ma-of-d-sever.vercel.app/api/top100")
       .then(res => {
         setTop(res.data.data[0].items)
       })
   }
 
   const fetchHome = async () => {
-    await axios.get("https://music-player-pink.vercel.app/api/home?page=1")
+    await axios.get("https://ma-of-d-sever.vercel.app/api/home?page=1")
       .then(res => {
         setBanner(res.data.data.items[0].items)
         setSuggestSong(res.data.data.items[3].items)

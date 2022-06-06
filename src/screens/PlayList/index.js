@@ -18,7 +18,7 @@ const PlayList = ({ route }) => {
   const arrEncodeId = []
 
   const getSongById = async () => {
-    await axios.get(`https://music-player-pink.vercel.app/api/playlist?id=${idPlayList}`)
+    await axios.get(`https://ma-of-d-sever.vercel.app/api/playlist?id=${idPlayList}`)
       .then(res => {
         setThumbnail(res.data.data.thumbnail)
         setSong(res.data.data.song.items)
